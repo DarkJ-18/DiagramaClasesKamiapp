@@ -1,9 +1,12 @@
 -- Crear la base de datos (si no existe)
+CREATE DATABASE IF NOT EXISTS nombre_base_de_datos;
 
+-- Seleccionar la base de datos
+USE nombre_base_de_datos;
 
 -- Tabla de Usuarios
-CREATE TABLE Usuarios (
-   IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Usuarios (
+    IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(50),
     Apellido VARCHAR(50),
     Cedula VARCHAR(20),
@@ -15,8 +18,8 @@ CREATE TABLE Usuarios (
 );
 
 -- Tabla de Productos
-CREATE TABLE Productos (
-   IdProducto INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Productos (
+    IdProducto INT AUTO_INCREMENT PRIMARY KEY,
     IdPedido INT,
     Nombre VARCHAR(100),
     Precio DECIMAL(10, 2),
@@ -26,45 +29,45 @@ CREATE TABLE Productos (
 );
 
 -- Tabla de Carritos
-CREATE TABLE Carritos (
+CREATE TABLE IF NOT EXISTS Carritos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(IdUsuario)
 );
 
 -- Tabla de Detalles del Carrito
-CREATE TABLE Detalles_Carrito (
+CREATE TABLE IF NOT EXISTS Detalles_Carrito (
     id INT PRIMARY KEY AUTO_INCREMENT,
     carrito_id INT,
     producto_id INT,
     cantidad INT NOT NULL,
     FOREIGN KEY (carrito_id) REFERENCES Carritos(id),
-    FOREIGN KEY (producto_id) REFERENCES Productos(id)
+    FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
 );
 
 -- Tabla de Facturas
-CREATE TABLE Facturas (
+CREATE TABLE IF NOT EXISTS Facturas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     idUsuario INT,
     total DECIMAL(10, 2) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(IdUsuario)
 );
 
 -- Tabla de Detalles de Orden
-CREATE TABLE DetallesFactura (
+CREATE TABLE IF NOT EXISTS DetallesFactura (
     id INT PRIMARY KEY AUTO_INCREMENT,
     orden_id INT,
     producto_id INT,
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (orden_id) REFERENCES Facturas(id),
-    FOREIGN KEY (producto_id) REFERENCES Productos(id)
+    FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
 );
 
 -- Tabla de Pagos
-CREATE TABLE Pagos (
+CREATE TABLE IF NOT EXISTS Pagos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     pagoId INT,
     metodo_pago ENUM('tarjeta_credito', 'tarjeta_debito', 'paypal', 'transferencia') NOT NULL,
@@ -73,19 +76,20 @@ CREATE TABLE Pagos (
     FOREIGN KEY (pagoId) REFERENCES Facturas(id)
 );
 
--- Tabla Notificaciones
+-- Tabla de Notificaciones
 CREATE TABLE IF NOT EXISTS Notificaciones (
     IdNotificacion INT AUTO_INCREMENT PRIMARY KEY,
-    usuarioId int,
-    tipoNotificacion varchar(100) NOT NULL,
+    usuarioId INT,
+    tipoNotificacion VARCHAR(100) NOT NULL,
     contenido TEXT,
-    fechaEnvio TIMESTAMP,
-    FOREIGN KEY (usuarioId) references Usuarios(IdUsuario)
+    fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(IdUsuario)
 );
 
---Tabla FotoProductos
+-- Tabla de FotoProductos
 CREATE TABLE IF NOT EXISTS FotoProductos (
-   idFotoProductos INT PRIMARY KEY,
-    
-    FOREIGN KEY () references ()
+    IdFotoProducto INT AUTO_INCREMENT PRIMARY KEY,
+    IdProducto INT,
+    Url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
