@@ -43,31 +43,30 @@ CREATE TABLE Detalles_Carrito (
 -- Tabla de Facturas
 CREATE TABLE Facturas (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
+    idUsuario INT,
     total DECIMAL(10, 2) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado ENUM('pendiente', 'pagado', 'cancelado') DEFAULT 'pendiente',
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
 );
 
 -- Tabla de Detalles de Orden
-CREATE TABLE DetallesFacrura (
+CREATE TABLE DetallesFactura (
     id INT PRIMARY KEY AUTO_INCREMENT,
     orden_id INT,
     producto_id INT,
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (orden_id) REFERENCES Ordenes(id),
+    FOREIGN KEY (orden_id) REFERENCES Facturas(id),
     FOREIGN KEY (producto_id) REFERENCES Productos(id)
 );
 
 -- Tabla de Pagos
 CREATE TABLE Pagos (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    orden_id INT,
+    pagoId INT,
     metodo_pago ENUM('tarjeta_credito', 'tarjeta_debito', 'paypal', 'transferencia') NOT NULL,
     fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     monto DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (orden_id) REFERENCES Ordenes(id)
+    FOREIGN KEY (pagoId) REFERENCES Facturas(id)
 );
 
