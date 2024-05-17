@@ -17,12 +17,6 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     Nickname VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS RolUsuarios (
-    idRolUsuario INT AUTO_INCREMENT PRIMARY KEY,
-    Nickname VARCHAR(50),
-    
-);
-
 
 -- Tabla Chats
 CREATE TABLE IF NOT EXISTS Chats (
