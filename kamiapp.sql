@@ -47,7 +47,6 @@ CREATE TABLE IF NOT EXISTS Productos (
     Precio DECIMAL(10, 2),
     Categoria VARCHAR(50),
     Descripcion TEXT,
-    Imagen VARCHAR(100),  -- Se almacena la ruta de la imagen
     FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido)
 );
 
