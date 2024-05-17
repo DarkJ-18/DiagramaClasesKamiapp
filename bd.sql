@@ -1,6 +1,5 @@
 -- Crear la base de datos (si no existe)
-CREATE DATABASE IF NOT EXISTS MercadoLibreDB;
-USE MercadoLibreDB;
+
 
 -- Tabla de Usuarios
 CREATE TABLE Usuarios (
@@ -41,8 +40,8 @@ CREATE TABLE Detalles_Carrito (
     FOREIGN KEY (producto_id) REFERENCES Productos(id)
 );
 
--- Tabla de Órdenes
-CREATE TABLE Ordenes (
+-- Tabla de Facturas
+CREATE TABLE Facturas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT,
     total DECIMAL(10, 2) NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE Ordenes (
 );
 
 -- Tabla de Detalles de Orden
-CREATE TABLE Detalles_Orden (
+CREATE TABLE DetallesFacrura (
     id INT PRIMARY KEY AUTO_INCREMENT,
     orden_id INT,
     producto_id INT,
