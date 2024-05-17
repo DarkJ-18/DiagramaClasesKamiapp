@@ -3,23 +3,26 @@
 
 -- Tabla de Usuarios
 CREATE TABLE Usuarios (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    Cedula VARCHAR(20),
+    Direccion VARCHAR(100),
+    Telefono VARCHAR(15),
+    Correo VARCHAR(100),
+    Datobancario VARCHAR(50),
+    Nickname VARCHAR(50)
 );
 
 -- Tabla de Productos
 CREATE TABLE Productos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(255) NOT NULL,
-    descripcion TEXT,
-    precio DECIMAL(10, 2) NOT NULL,
-    stock INT NOT NULL,
-    usuario_id INT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
+   IdProducto INT AUTO_INCREMENT PRIMARY KEY,
+    IdPedido INT,
+    Nombre VARCHAR(100),
+    Precio DECIMAL(10, 2),
+    Categoria VARCHAR(50),
+    Descripcion TEXT,
+    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido)
 );
 
 -- Tabla de Carritos
@@ -70,3 +73,19 @@ CREATE TABLE Pagos (
     FOREIGN KEY (pagoId) REFERENCES Facturas(id)
 );
 
+-- Tabla Notificaciones
+CREATE TABLE IF NOT EXISTS Notificaciones (
+    IdNotificacion INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId int,
+    tipoNotificacion varchar(100) NOT NULL,
+    contenido TEXT,
+    fechaEnvio TIMESTAMP,
+    FOREIGN KEY (usuarioId) references Usuarios(IdUsuario)
+);
+
+--Tabla FotoProductos
+CREATE TABLE IF NOT EXISTS FotoProductos (
+   idFotoProductos INT PRIMARY KEY,
+    
+    FOREIGN KEY () references ()
+);
