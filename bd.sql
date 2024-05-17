@@ -46,7 +46,6 @@ CREATE TABLE Facturas (
     usuario_id INT,
     total DECIMAL(10, 2) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado ENUM('pendiente', 'pagado', 'cancelado') DEFAULT 'pendiente',
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
 );
 
