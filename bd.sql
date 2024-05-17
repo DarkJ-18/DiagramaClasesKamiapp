@@ -20,17 +20,15 @@ CREATE TABLE IF NOT EXISTS Usuarios (
 -- Tabla de Productos
 CREATE TABLE IF NOT EXISTS Productos (
     IdProducto INT AUTO_INCREMENT PRIMARY KEY,
-    IdPedido INT,
     Nombre VARCHAR(100),
     Precio DECIMAL(10, 2),
     Categoria VARCHAR(50),
-    Descripcion TEXT,
-    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido)
+    Descripcion TEXT
 );
 
 -- Tabla de Carritos
 CREATE TABLE IF NOT EXISTS Carritos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idCarrito INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(IdUsuario)
@@ -38,42 +36,42 @@ CREATE TABLE IF NOT EXISTS Carritos (
 
 -- Tabla de Detalles del Carrito
 CREATE TABLE IF NOT EXISTS Detalles_Carrito (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idDetallesCarrito INT PRIMARY KEY AUTO_INCREMENT,
     carrito_id INT,
     producto_id INT,
     cantidad INT NOT NULL,
-    FOREIGN KEY (carrito_id) REFERENCES Carritos(id),
+    FOREIGN KEY (carrito_id) REFERENCES Carritos(idCarrito),
     FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
 );
 
 -- Tabla de Facturas
 CREATE TABLE IF NOT EXISTS Facturas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idFactura INT PRIMARY KEY AUTO_INCREMENT,
     idUsuario INT,
     total DECIMAL(10, 2) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(IdUsuario)
 );
 
--- Tabla de Detalles de Orden
-CREATE TABLE IF NOT EXISTS DetallesFactura (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    orden_id INT,
+-- Tabla de Detalles de Factura
+CREATE TABLE IF NOT EXISTS Detalles_Factura (
+    idDetallesFactura INT PRIMARY KEY AUTO_INCREMENT,
+    factura_id INT,
     producto_id INT,
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (orden_id) REFERENCES Facturas(id),
+    FOREIGN KEY (factura_id) REFERENCES Facturas(idFactura),
     FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
 );
 
 -- Tabla de Pagos
 CREATE TABLE IF NOT EXISTS Pagos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    pagoId INT,
+    idPago INT PRIMARY KEY AUTO_INCREMENT,
+    factura_id INT,
     metodo_pago ENUM('tarjeta_credito', 'tarjeta_debito', 'paypal', 'transferencia') NOT NULL,
     fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     monto DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (pagoId) REFERENCES Facturas(id)
+    FOREIGN KEY (factura_id) REFERENCES Facturas(idFactura)
 );
 
 -- Tabla de Notificaciones
