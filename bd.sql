@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS Usuarios (
 
 -- Tabla de Productos
 CREATE TABLE IF NOT EXISTS Productos (
-    IdProducto INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre VARCHAR(100),
-    Precio DECIMAL(10, 2),
-    Categoria VARCHAR(50),
-    Descripcion TEXT
+    idProducto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    precio DECIMAL(10, 2),
+    categoria VARCHAR(50),
+    descripcion TEXT
 );
 
 -- Tabla de Carritos
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Facturas (
     idUsuario INT,
     total DECIMAL(10, 2) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(IdUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
 
 -- Tabla de Detalles de Factura
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Detalles_Factura (
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (factura_id) REFERENCES Facturas(idFactura),
-    FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
+    FOREIGN KEY (producto_id) REFERENCES Productos(idProducto)
 );
 
 -- Tabla de Pagos
@@ -76,18 +76,18 @@ CREATE TABLE IF NOT EXISTS Pagos (
 
 -- Tabla de Notificaciones
 CREATE TABLE IF NOT EXISTS Notificaciones (
-    IdNotificacion INT AUTO_INCREMENT PRIMARY KEY,
+    idNotificacion INT AUTO_INCREMENT PRIMARY KEY,
     usuarioId INT,
     tipoNotificacion VARCHAR(100) NOT NULL,
     contenido TEXT,
     fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuarioId) REFERENCES Usuarios(IdUsuario)
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(idUsuario)
 );
 
 -- Tabla de FotoProductos
 CREATE TABLE IF NOT EXISTS FotoProductos (
-    IdFotoProducto INT AUTO_INCREMENT PRIMARY KEY,
-    IdProducto INT,
-    Url VARCHAR(255) NOT NULL,
-    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+    idFotoProducto INT AUTO_INCREMENT PRIMARY KEY,
+    idProducto INT,
+    urlImagen VARCHAR(255) NOT NULL,
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
