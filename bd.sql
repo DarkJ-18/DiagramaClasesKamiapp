@@ -1,93 +1,134 @@
--- Crear la base de datos (si no existe)
-CREATE DATABASE IF NOT EXISTS nombre_base_de_datos;
-
--- Seleccionar la base de datos
-USE nombre_base_de_datos;
-
--- Tabla de Usuarios
-CREATE TABLE IF NOT EXISTS Usuarios (
-    IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre VARCHAR(50),
-    Apellido VARCHAR(50),
-    Cedula VARCHAR(20),
-    Direccion VARCHAR(100),
-    Telefono VARCHAR(15),
-    Correo VARCHAR(100),
-    Datobancario VARCHAR(50),
-    Nickname VARCHAR(50)
+-- Creación de la tabla Usuario
+CREATE TABLE Usuario (
+    IdUsuario INT PRIMARY KEY,
+    Nombre VARCHAR(255),
+    Apellido VARCHAR(255),
+    Cedula INT(20),
+    Direccion VARCHAR(255),
+    Telefono INT(20),
+    Correo VARCHAR(255),
+    DatoBancario VARCHAR(255),
+    Nickname VARCHAR(255)
 );
 
--- Tabla de Productos
-CREATE TABLE IF NOT EXISTS Productos (
-    idProducto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
-    precio DECIMAL(10, 2),
-    categoria VARCHAR(50),
-    descripcion TEXT
+-- Creación de la tabla Chat
+CREATE TABLE Chat (
+    IdChat INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Mensaje TEXT,
+    FotoProducto VARCHAR(255), --Se puede cambiar por un campo de tipo BLOB -- PREGUNTAR!
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
--- Tabla de Carritos
-CREATE TABLE IF NOT EXISTS Carritos (
-    idCarrito INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES Usuarios(IdUsuario)
+-- Creación de la tabla Pedido
+CREATE TABLE Pedido (
+    IdPedido INT PRIMARY KEY,
+    IdUsuario INT,
+    Hora TIME,
+    FechaPedido DATE,
+    Estado VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
--- Tabla de Detalles del Carrito
-CREATE TABLE IF NOT EXISTS Detalles_Carrito (
-    idDetallesCarrito INT PRIMARY KEY AUTO_INCREMENT,
-    carrito_id INT,
-    producto_id INT,
-    cantidad INT NOT NULL,
-    FOREIGN KEY (carrito_id) REFERENCES Carritos(idCarrito),
-    FOREIGN KEY (producto_id) REFERENCES Productos(IdProducto)
+-- Creación de la tabla Producto
+CREATE TABLE Producto (
+    IdProducto INT PRIMARY KEY,
+    IdPedido INT,
+    Nombre VARCHAR(255),
+    Precio FLOAT,
+    Categoria VARCHAR(255),
+    Descripcion TEXT,
+    Imagen VARCHAR(255), --Se puede cambiar por un campo de tipo BLOB -- PREGUNTAR!
+    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
 );
 
--- Tabla de Facturas
-CREATE TABLE IF NOT EXISTS Facturas (
-    idFactura INT PRIMARY KEY AUTO_INCREMENT,
-    idUsuario INT,
-    total DECIMAL(10, 2) NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+-- Creación de la tabla Notificacion
+CREATE TABLE Notificacion (
+    IdNotificacion INT PRIMARY KEY,
+    IdPedido INT,
+    Fecha DATE,
+    Hora TIME,
+    NotificacionPedido TEXT,
+    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
 );
 
--- Tabla de Detalles de Factura
-CREATE TABLE IF NOT EXISTS Detalles_Factura (
-    idDetallesFactura INT PRIMARY KEY AUTO_INCREMENT,
-    factura_id INT,
-    producto_id INT,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (factura_id) REFERENCES Facturas(idFactura),
-    FOREIGN KEY (producto_id) REFERENCES Productos(idProducto)
+-- Creación de la tabla Comprobante
+CREATE TABLE Comprobante (
+    IdComprobante INT PRIMARY KEY,
+    IdPedido INT,
+    Fecha DATE,
+    Total FLOAT,
+    Detalles TEXT,
+    EstadoPago VARCHAR(255),
+    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
 );
 
--- Tabla de Pagos
-CREATE TABLE IF NOT EXISTS Pagos (
-    idPago INT PRIMARY KEY AUTO_INCREMENT,
-    factura_id INT,
-    metodo_pago ENUM('tarjeta_credito', 'tarjeta_debito', 'paypal', 'transferencia') NOT NULL,
-    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    monto DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (factura_id) REFERENCES Facturas(idFactura)
+-- Creación de la tabla DetalleCarritos
+CREATE TABLE DetalleCarritos (
+    IdDetalleCarrito INT PRIMARY KEY,
+    IdCarrito INT,
+    IdProducto INT,
+    Cantidad INT,
+    PrecioUnitario FLOAT,
+    Subtotal FLOAT,
+    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito),
+    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
 );
 
--- Tabla de Notificaciones
-CREATE TABLE IF NOT EXISTS Notificaciones (
-    idNotificacion INT AUTO_INCREMENT PRIMARY KEY,
-    usuarioId INT,
-    tipoNotificacion VARCHAR(100) NOT NULL,
-    contenido TEXT,
-    fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuarioId) REFERENCES Usuarios(idUsuario)
+-- Creación de la tabla Carritos
+CREATE TABLE Carritos (
+    IdCarrito INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Estado VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
--- Tabla de FotoProductos
-CREATE TABLE IF NOT EXISTS FotoProductos (
-    idFotoProducto INT AUTO_INCREMENT PRIMARY KEY,
-    idProducto INT,
-    urlImagen VARCHAR(255) NOT NULL,
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+-- Creación de la tabla DetallesFactura
+CREATE TABLE DetallesFactura (
+    IdDetalleFactura INT PRIMARY KEY,
+    IdFactura INT,
+    IdProducto INT,
+    Cantidad INT,
+    PrecioUnitario FLOAT,
+    Subtotal FLOAT,
+    FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura),
+    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+);
+
+-- Creación de la tabla FotoProductos
+CREATE TABLE FotoProductos (
+    IdFotoProducto INT PRIMARY KEY,
+    IdProducto INT,
+    UrlFoto VARCHAR(255),
+    Descripcion TEXT,
+    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+);
+
+-- Creación de la tabla Categorias
+CREATE TABLE Categorias (
+    IdCategoria INT PRIMARY KEY,
+    Nombre VARCHAR(255),
+    Descripcion TEXT
+);
+
+-- Creación de la tabla Facturas
+CREATE TABLE Facturas (
+    IdFactura INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Total FLOAT,
+    EstadoPago VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+);
+
+-- Creación de la tabla MetodoPagos
+CREATE TABLE MetodoPagos (
+    IdMetodoPago INT PRIMARY KEY,
+    Nombre VARCHAR(255),
+    Descripcion TEXT
 );
