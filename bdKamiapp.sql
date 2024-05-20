@@ -11,15 +11,11 @@ CREATE TABLE Usuario (
     Nickname VARCHAR(255)
 );
 
--- Tabla Chat
-CREATE TABLE Chat (
-    IdChat INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Mensaje TEXT,
-    FotoProducto VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+-- Tabla Categorias
+CREATE TABLE Categorias (
+    IdCategoria INT PRIMARY KEY,
+    Nombre VARCHAR(255),
+    Descripcion TEXT
 );
 
 -- Tabla Pedido
@@ -42,6 +38,50 @@ CREATE TABLE Producto (
     Descripcion TEXT,
     Imagen VARCHAR(255),
     FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
+);
+
+-- Tabla Carritos
+CREATE TABLE Carritos (
+    IdCarrito INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Estado VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+);
+
+-- Tabla Facturas
+CREATE TABLE Facturas (
+    IdFactura INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Total FLOAT,
+    EstadoPago VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+);
+
+-- Tabla DetallesFactura
+CREATE TABLE DetallesFactura (
+    IdDetalleFactura INT PRIMARY KEY,
+    IdFactura INT,
+    IdProducto INT,
+    Cantidad INT,
+    PrecioUnitario FLOAT,
+    Subtotal FLOAT,
+    FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura),
+    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+);
+
+-- Tabla Chat
+CREATE TABLE Chat (
+    IdChat INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Mensaje TEXT,
+    FotoProducto VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
 -- Tabla Notificacion
@@ -77,28 +117,6 @@ CREATE TABLE DetalleCarritos (
     FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
 );
 
--- Tabla Carritos
-CREATE TABLE Carritos (
-    IdCarrito INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
-);
-
--- Tabla DetallesFactura
-CREATE TABLE DetallesFactura (
-    IdDetalleFactura INT PRIMARY KEY,
-    IdFactura INT,
-    IdProducto INT,
-    Cantidad INT,
-    PrecioUnitario FLOAT,
-    Subtotal FLOAT,
-    FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura),
-    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
-);
-
 -- Tabla FotoProductos
 CREATE TABLE FotoProductos (
     IdFotoProducto INT PRIMARY KEY,
@@ -106,24 +124,6 @@ CREATE TABLE FotoProductos (
     UrlFoto VARCHAR(255),
     Descripcion TEXT,
     FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
-);
-
--- Tabla Categorias
-CREATE TABLE Categorias (
-    IdCategoria INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Descripcion TEXT
-);
-
--- Tabla Facturas
-CREATE TABLE Facturas (
-    IdFactura INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Total FLOAT,
-    EstadoPago VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
 -- Tabla MetodoPagos
