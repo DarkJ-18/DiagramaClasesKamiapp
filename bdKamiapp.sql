@@ -25,14 +25,26 @@ CREATE TABLE Categorias (
     Descripcion TEXT
 );
 
+-- Tabla Carritos
+CREATE TABLE Carritos (
+    IdCarrito INT PRIMARY KEY,
+    IdUsuario INT,
+    Fecha DATE,
+    Hora TIME,
+    Estado VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+);
+
 -- Tabla Pedido
 CREATE TABLE Pedido (
     IdPedido INT PRIMARY KEY,
     IdUsuario INT,
+    IdCarrito INT,  -- Relación con Carrito
     Hora TIME,
     FechaPedido DATE,
     Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
+    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito)  -- Clave foránea a Carritos
 );
 
 -- Tabla Producto
@@ -48,27 +60,19 @@ CREATE TABLE Producto (
     FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
 );
 
--- Tabla Carritos
-CREATE TABLE Carritos (
-    IdCarrito INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
-);
-
 -- Tabla Facturas
 CREATE TABLE Facturas (
     IdFactura INT PRIMARY KEY,
     IdUsuario INT,
     IdMetodoPago INT,
+    IdPedido INT,  -- Relación con Pedido
     Fecha DATE,
     Hora TIME,
     Total FLOAT,
     EstadoPago VARCHAR(255),
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
-    FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPagos(IdMetodoPago)
+    FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPagos(IdMetodoPago),
+    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)  -- Clave foránea a Pedido
 );
 
 -- Tabla DetallesFactura
@@ -135,7 +139,6 @@ CREATE TABLE FotoProductos (
     Descripcion TEXT,
     FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
 );
-
 
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
