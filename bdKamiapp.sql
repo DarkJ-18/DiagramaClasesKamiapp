@@ -158,6 +158,7 @@ CREATE TABLE FotoProductos (
 -- Relación con Facturas: Un usuario puede tener varias facturas.
 -- Relación con Chat: Un usuario puede enviar varios mensajes en el chat.
 -- Relación con Notificacion: Un usuario puede recibir varias notificaciones.
+-- Relación con Suscripciones: Un usuario puede tener varias suscripciones.
 -- MetodoPagos:
 
 -- Relación con Facturas: Cada factura está asociada a un método de pago específico.
@@ -173,6 +174,9 @@ CREATE TABLE FotoProductos (
 -- Relación con Producto: Un pedido puede contener varios productos.
 -- Relación con Facturas: Un pedido puede estar asociado con una factura.
 -- Relación con Notificacion: Un pedido puede generar varias notificaciones.
+-- Suscripciones:
+
+-- Relación con Usuario: Cada suscripción pertenece a un usuario.
 -- Producto:
 
 -- Relación con Pedido: Un producto puede estar presente en varios pedidos.
