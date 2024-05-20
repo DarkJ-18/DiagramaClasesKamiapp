@@ -7,7 +7,6 @@ CREATE TABLE Usuario (
     Direccion VARCHAR(255),
     Telefono VARCHAR(20),
     Correo VARCHAR(255),
-    DatoBancario VARCHAR(255),
     Nickname VARCHAR(255)
 );
 
@@ -58,6 +57,17 @@ CREATE TABLE Producto (
     Imagen VARCHAR(255),
     FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido),
     FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
+);
+
+-- Tabla Suscripciones
+CREATE TABLE Suscripciones (
+    IdSuscripcion INT PRIMARY KEY,
+    IdUsuario INT,
+    TipoSuscripcion VARCHAR(255),
+    FechaInicio DATE,
+    FechaFin DATE,
+    Estado VARCHAR(255),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
 -- Tabla Facturas
@@ -142,94 +152,55 @@ CREATE TABLE FotoProductos (
 
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
-/* Usuario:
+-- Usuario:
 
-Usuario no tiene relaciones entrantes pero es referenciado por muchas tablas.
-MetodoPagos:
+-- Relación con Pedido: Un usuario puede realizar varios pedidos.
+-- Relación con Carritos: Un usuario puede tener varios carritos.
+-- Relación con Facturas: Un usuario puede tener varias facturas.
+-- Relación con Chat: Un usuario puede enviar varios mensajes en el chat.
+-- Relación con Notificacion: Un usuario puede recibir varias notificaciones.
+-- MetodoPagos:
 
-MetodoPagos no tiene relaciones entrantes pero es referenciado por la tabla Facturas.
-Categorias:
+-- Relación con Facturas: Cada factura está asociada a un método de pago específico.
+-- Categorias:
 
-Categorias no tiene relaciones entrantes pero es referenciado por la tabla Producto.
-Carritos:
+-- Relación con Producto: Cada producto pertenece a una categoría.
+-- Carritos:
 
-Carritos:
-IdUsuario (foránea) → Usuario(IdUsuario)
-Carritos es referenciado por Pedido y DetalleCarritos.
-Pedido:
+-- Relación con Pedido: Un carrito se asocia con un pedido.
+-- Pedido:
 
-Pedido:
-IdUsuario (foránea) → Usuario(IdUsuario)
-IdCarrito (foránea) → Carritos(IdCarrito)
-Pedido es referenciado por Producto, Notificacion, Comprobante, y Facturas.
-Producto:
+-- Relación con Carritos: Un pedido se origina a partir de un carrito.
+-- Relación con Producto: Un pedido puede contener varios productos.
+-- Relación con Facturas: Un pedido puede estar asociado con una factura.
+-- Relación con Notificacion: Un pedido puede generar varias notificaciones.
+-- Producto:
 
-Producto:
-IdPedido (foránea) → Pedido(IdPedido)
-IdCategoria (foránea) → Categorias(IdCategoria)
-Producto es referenciado por DetallesFactura, DetalleCarritos, y FotoProductos.
-Facturas:
+-- Relación con Pedido: Un producto puede estar presente en varios pedidos.
+-- Relación con Categorias: Cada producto pertenece a una categoría.
+-- Facturas:
 
-Facturas:
-IdUsuario (foránea) → Usuario(IdUsuario)
-IdMetodoPago (foránea) → MetodoPagos(IdMetodoPago)
-IdPedido (foránea) → Pedido(IdPedido)
-Facturas es referenciado por DetallesFactura.
-DetallesFactura:
+-- Relación con Usuario: Cada factura pertenece a un usuario.
+-- Relación con Pedido: Cada factura está asociada a un pedido.
+-- Relación con MetodoPagos: Cada factura utiliza un método de pago específico.
+-- DetallesFactura:
 
-DetallesFactura:
-IdFactura (foránea) → Facturas(IdFactura)
-IdProducto (foránea) → Producto(IdProducto)
-Chat:
+-- Relación con Facturas: Cada detalle de factura está asociado a una factura.
+-- Relación con Producto: Cada detalle de factura está asociado a un producto.
+-- Chat:
 
-Chat:
-IdUsuario (foránea) → Usuario(IdUsuario)
-Notificacion:
+-- Relación con Usuario: Cada mensaje en el chat es enviado por un usuario.
+-- Notificacion:
 
-Notificacion:
-IdPedido (foránea) → Pedido(IdPedido)
-Comprobante:
+-- Relación con Usuario: Cada notificación está dirigida a un usuario.
+-- Relación con Pedido: Cada notificación está asociada a un pedido.
+-- Comprobante:
 
-Comprobante:
-IdPedido (foránea) → Pedido(IdPedido)
-DetalleCarritos:
+-- Relación con Pedido: Cada comprobante está asociado a un pedido.
+-- DetalleCarritos:
 
-DetalleCarritos:
-IdCarrito (foránea) → Carritos(IdCarrito)
-IdProducto (foránea) → Producto(IdProducto)
-FotoProductos:
+-- Relación con Carritos: Cada detalle de carrito está asociado a un carrito.
+-- Relación con Producto: Cada detalle de carrito está asociado a un producto.
+-- FotoProductos:
 
-FotoProductos:
-IdProducto (foránea) → Producto(IdProducto)
-Estas son las relaciones claves:
-
-Usuario se relaciona con:
-
-Carritos a través de IdUsuario
-Pedido a través de IdUsuario
-Facturas a través de IdUsuario
-Chat a través de IdUsuario
-MetodoPagos se relaciona con:
-
-Facturas a través de IdMetodoPago
-Categorias se relaciona con:
-
-Producto a través de IdCategoria
-Carritos se relaciona con:
-
-Pedido a través de IdCarrito
-DetalleCarritos a través de IdCarrito
-Pedido se relaciona con:
-
-Producto a través de IdPedido
-Notificacion a través de IdPedido
-Comprobante a través de IdPedido
-Facturas a través de IdPedido
-Producto se relaciona con:
-
-DetallesFactura a través de IdProducto
-DetalleCarritos a través de IdProducto
-FotoProductos a través de IdProducto
-Facturas se relaciona con:
-
-DetallesFactura a través de IdFactura */
+-- Relación con Producto: Cada foto de producto está asociada a un producto.
