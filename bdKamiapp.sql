@@ -11,6 +11,13 @@ CREATE TABLE Usuario (
     Nickname VARCHAR(255)
 );
 
+-- Tabla MetodoPagos
+CREATE TABLE MetodoPagos (
+    IdMetodoPago INT PRIMARY KEY,
+    Nombre VARCHAR(255),
+    Descripcion TEXT
+);
+
 -- Tabla Categorias
 CREATE TABLE Categorias (
     IdCategoria INT PRIMARY KEY,
@@ -32,12 +39,13 @@ CREATE TABLE Pedido (
 CREATE TABLE Producto (
     IdProducto INT PRIMARY KEY,
     IdPedido INT,
+    IdCategoria INT,
     Nombre VARCHAR(255),
     Precio FLOAT,
-    Categoria VARCHAR(255),
     Descripcion TEXT,
     Imagen VARCHAR(255),
-    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
+    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido),
+    FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
 );
 
 -- Tabla Carritos
@@ -54,11 +62,13 @@ CREATE TABLE Carritos (
 CREATE TABLE Facturas (
     IdFactura INT PRIMARY KEY,
     IdUsuario INT,
+    IdMetodoPago INT,
     Fecha DATE,
     Hora TIME,
     Total FLOAT,
     EstadoPago VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
+    FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPagos(IdMetodoPago)
 );
 
 -- Tabla DetallesFactura
@@ -124,13 +134,6 @@ CREATE TABLE FotoProductos (
     UrlFoto VARCHAR(255),
     Descripcion TEXT,
     FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
-);
-
--- Tabla MetodoPagos
-CREATE TABLE MetodoPagos (
-    IdMetodoPago INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Descripcion TEXT
 );
 
 
