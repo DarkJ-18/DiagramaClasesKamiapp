@@ -142,43 +142,94 @@ CREATE TABLE FotoProductos (
 
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
--- Usuario - Chat:
+/* Usuario:
 
--- Relación: Un usuario puede tener varios chats.
--- Clave Foránea: Chat.IdUsuario referencia Usuario.IdUsuario.
--- Usuario - Pedido:
+Usuario no tiene relaciones entrantes pero es referenciado por muchas tablas.
+MetodoPagos:
 
--- Relación: Un usuario puede realizar varios pedidos.
--- Clave Foránea: Pedido.IdUsuario referencia Usuario.IdUsuario.
--- Pedido - Producto:
+MetodoPagos no tiene relaciones entrantes pero es referenciado por la tabla Facturas.
+Categorias:
 
--- Relación: Un pedido puede contener varios productos.
--- Clave Foránea: Producto.IdPedido referencia Pedido.IdPedido.
--- Pedido - Notificacion:
+Categorias no tiene relaciones entrantes pero es referenciado por la tabla Producto.
+Carritos:
 
--- Relación: Un pedido puede tener varias notificaciones.
--- Clave Foránea: Notificacion.IdPedido referencia Pedido.IdPedido.
--- Pedido - Comprobante:
+Carritos:
+IdUsuario (foránea) → Usuario(IdUsuario)
+Carritos es referenciado por Pedido y DetalleCarritos.
+Pedido:
 
--- Relación: Un pedido puede tener un comprobante asociado.
--- Clave Foránea: Comprobante.IdPedido referencia Pedido.IdPedido.
--- Carritos - DetalleCarritos:
+Pedido:
+IdUsuario (foránea) → Usuario(IdUsuario)
+IdCarrito (foránea) → Carritos(IdCarrito)
+Pedido es referenciado por Producto, Notificacion, Comprobante, y Facturas.
+Producto:
 
--- Relación: Un carrito puede tener varios detalles de carrito.
--- Clave Foránea: DetalleCarritos.IdCarrito referencia Carritos.IdCarrito.
--- Producto - DetalleCarritos:
+Producto:
+IdPedido (foránea) → Pedido(IdPedido)
+IdCategoria (foránea) → Categorias(IdCategoria)
+Producto es referenciado por DetallesFactura, DetalleCarritos, y FotoProductos.
+Facturas:
 
--- Relación: Un producto puede estar en varios detalles de carrito.
--- Clave Foránea: DetalleCarritos.IdProducto referencia Producto.IdProducto.
--- Usuario - Carritos:
+Facturas:
+IdUsuario (foránea) → Usuario(IdUsuario)
+IdMetodoPago (foránea) → MetodoPagos(IdMetodoPago)
+IdPedido (foránea) → Pedido(IdPedido)
+Facturas es referenciado por DetallesFactura.
+DetallesFactura:
 
--- Relación: Un usuario puede tener varios carritos.
--- Clave Foránea: Carritos.IdUsuario referencia Usuario.IdUsuario.
--- Facturas - DetallesFactura:
+DetallesFactura:
+IdFactura (foránea) → Facturas(IdFactura)
+IdProducto (foránea) → Producto(IdProducto)
+Chat:
 
--- Relación: Una factura puede tener varios detalles de factura.
--- Clave Foránea: DetallesFactura.IdFactura referencia Facturas.IdFactura.
--- Producto - FotoProductos:
+Chat:
+IdUsuario (foránea) → Usuario(IdUsuario)
+Notificacion:
 
--- Relación: Un producto puede tener varias fotos asociadas.
--- Clave Foránea: FotoProductos.IdProducto referencia Producto.IdProducto.
+Notificacion:
+IdPedido (foránea) → Pedido(IdPedido)
+Comprobante:
+
+Comprobante:
+IdPedido (foránea) → Pedido(IdPedido)
+DetalleCarritos:
+
+DetalleCarritos:
+IdCarrito (foránea) → Carritos(IdCarrito)
+IdProducto (foránea) → Producto(IdProducto)
+FotoProductos:
+
+FotoProductos:
+IdProducto (foránea) → Producto(IdProducto)
+Estas son las relaciones claves:
+
+Usuario se relaciona con:
+
+Carritos a través de IdUsuario
+Pedido a través de IdUsuario
+Facturas a través de IdUsuario
+Chat a través de IdUsuario
+MetodoPagos se relaciona con:
+
+Facturas a través de IdMetodoPago
+Categorias se relaciona con:
+
+Producto a través de IdCategoria
+Carritos se relaciona con:
+
+Pedido a través de IdCarrito
+DetalleCarritos a través de IdCarrito
+Pedido se relaciona con:
+
+Producto a través de IdPedido
+Notificacion a través de IdPedido
+Comprobante a través de IdPedido
+Facturas a través de IdPedido
+Producto se relaciona con:
+
+DetallesFactura a través de IdProducto
+DetalleCarritos a través de IdProducto
+FotoProductos a través de IdProducto
+Facturas se relaciona con:
+
+DetallesFactura a través de IdFactura */
