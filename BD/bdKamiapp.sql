@@ -1,211 +1,196 @@
--- Tabla Usuario
-CREATE TABLE Usuario (
-    IdUsuario INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Apellido VARCHAR(255),
-    Cedula VARCHAR(20),
-    Direccion VARCHAR(255),
-    Telefono VARCHAR(20),
-    Correo VARCHAR(255),
-    Nickname VARCHAR(255),
-    IdRol INT,
-    FOREIGN KEY (IdRol) REFERENCES RolesUsuarios(IdRol)
+-- Tabla Usuarios
+CREATE TABLE Usuarios(
+    idUsuario INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellido VARCHAR(255),
+    cedula VARCHAR(20),
+    direccion VARCHAR(255),
+    telefono VARCHAR(20),
+    correo VARCHAR(255),
+    nickname VARCHAR(255),
+    idRol INT,
+    FOREIGN KEY(idRol) REFERENCES RolesUsuarios(idRol)
 );
-
 -- Tabla RolesUsuarios
-CREATE TABLE RolesUsuarios (
-    IdRol INT PRIMARY KEY,
-    NombreRol VARCHAR(255)
+CREATE TABLE RolesUsuarios(
+    idRol INT PRIMARY KEY,
+    nombreRol VARCHAR(255)
 );
-
--- Tabla MetodoPagos
-CREATE TABLE MetodoPagos (
-    IdMetodoPago INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Descripcion TEXT
+-- Tabla MetodosPago
+CREATE TABLE MetodosPago(
+    idMetodoPago INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT
 );
-
 -- Tabla Categorias
-CREATE TABLE Categorias (
-    IdCategoria INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Descripcion TEXT
+CREATE TABLE Categorias(
+    idCategoria INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT
 );
-
 -- Tabla Carritos
-CREATE TABLE Carritos (
-    IdCarrito INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+CREATE TABLE Carritos(
+    idCarrito INT PRIMARY KEY,
+    idUsuario INT,
+    fecha DATE,
+    hora TIME,
+    estado VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
 );
-
--- Tabla Pedido
-CREATE TABLE Pedido (
-    IdPedido INT PRIMARY KEY,
-    IdUsuario INT,
-    IdCarrito INT,  -- Relación con Carrito
-    Hora TIME,
-    FechaPedido DATE,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
-    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito)  -- Clave foránea a Carritos
+-- Tabla Pedidos
+CREATE TABLE Pedidos(
+    idPedido INT PRIMARY KEY,
+    idUsuario INT,
+    idCarrito INT,
+    -- Relación con Carritos
+    hora TIME,
+    fechaPedido DATE,
+    estado VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY(idCarrito) REFERENCES Carritos(idCarrito) -- Clave foránea a Carritos
 );
-
--- Tabla Producto
-CREATE TABLE Producto (
-    IdProducto INT PRIMARY KEY,
-    IdPedido INT,
-    IdCategoria INT,
-    Nombre VARCHAR(255),
-    Precio FLOAT,
-    Descripcion TEXT,
-    Imagen VARCHAR(255),
-    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido),
-    FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
+-- Tabla Productos
+CREATE TABLE Productos(
+    idProducto INT PRIMARY KEY,
+    idPedido INT,
+    idCategoria INT,
+    nombre VARCHAR(255),
+    precio FLOAT,
+    descripcion TEXT,
+    imagen VARCHAR(255),
+    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido),
+    FOREIGN KEY(idCategoria) REFERENCES Categorias(idCategoria)
 );
-
 -- Tabla Suscripciones
-CREATE TABLE Suscripciones (
-    IdSuscripcion INT PRIMARY KEY,
-    IdUsuario INT,
-    TipoSuscripcion VARCHAR(255),
-    FechaInicio DATE,
-    FechaFin DATE,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+CREATE TABLE Suscripciones(
+    idSuscripcion INT PRIMARY KEY,
+    idUsuario INT,
+    tipoSuscripcion VARCHAR(255),
+    fechaInicio DATE,
+    fechaFin DATE,
+    estado VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
 );
-
 -- Tabla Facturas
-CREATE TABLE Facturas (
-    IdFactura INT PRIMARY KEY,
-    IdUsuario INT,
-    IdMetodoPago INT,
-    IdPedido INT,  -- Relación con Pedido
-    Fecha DATE,
-    Hora TIME,
-    Total FLOAT,
-    EstadoPago VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
-    FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPagos(IdMetodoPago),
-    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)  -- Clave foránea a Pedido
+CREATE TABLE Facturas(
+    idFactura INT PRIMARY KEY,
+    idUsuario INT,
+    idMetodoPago INT,
+    idPedido INT,
+    -- Relación con Pedidos
+    fecha DATE,
+    hora TIME,
+    total FLOAT,
+    estadoPago VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY(idMetodoPago) REFERENCES MetodosPago(idMetodoPago),
+    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido) -- Clave foránea a Pedidos
 );
-
 -- Tabla DetallesFactura
-CREATE TABLE DetallesFactura (
-    IdDetalleFactura INT PRIMARY KEY,
-    IdFactura INT,
-    IdProducto INT,
-    Cantidad INT,
-    PrecioUnitario FLOAT,
-    Subtotal FLOAT,
-    FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura),
-    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+CREATE TABLE DetallesFactura(
+    idDetalleFactura INT PRIMARY KEY,
+    idFactura INT,
+    idProducto INT,
+    cantidad INT,
+    precioUnitario FLOAT,
+    subtotal FLOAT,
+    FOREIGN KEY(idFactura) REFERENCES Facturas(idFactura),
+    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
 );
-
--- Tabla Chat
-CREATE TABLE Chat (
-    IdChat INT PRIMARY KEY,
-    IdUsuario INT,
-    Fecha DATE,
-    Hora TIME,
-    Mensaje TEXT,
-    FotoProducto VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+-- Tabla Chats
+CREATE TABLE Chats(
+    idChat INT PRIMARY KEY,
+    idUsuario INT,
+    fecha DATE,
+    hora TIME,
+    mensaje TEXT,
+    fotoProducto VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
 );
-
--- Tabla Notificacion
-CREATE TABLE Notificacion (
-    IdNotificacion INT PRIMARY KEY,
-    IdPedido INT,
-    Fecha DATE,
-    Hora TIME,
-    NotificacionPedido TEXT,
-    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
+-- Tabla Notificaciones
+CREATE TABLE Notificaciones(
+    idNotificacion INT PRIMARY KEY,
+    idPedido INT,
+    fecha DATE,
+    hora TIME,
+    notificacionPedido TEXT,
+    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido)
 );
-
--- Tabla Comprobante
-CREATE TABLE Comprobante (
-    IdComprobante INT PRIMARY KEY,
-    IdPedido INT,
-    Fecha DATE,
-    Total FLOAT,
-    Detalles TEXT,
-    EstadoPago VARCHAR(255),
-    FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
+-- Tabla Comprobantes
+CREATE TABLE Comprobantes(
+    idComprobante INT PRIMARY KEY,
+    idPedido INT,
+    fecha DATE,
+    total FLOAT,
+    detalles TEXT,
+    estadoPago VARCHAR(255),
+    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido)
 );
-
--- Tabla DetalleCarritos
-CREATE TABLE DetalleCarritos (
-    IdDetalleCarrito INT PRIMARY KEY,
-    IdCarrito INT,
-    IdProducto INT,
-    Cantidad INT,
-    PrecioUnitario FLOAT,
-    Subtotal FLOAT,
-    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito),
-    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+-- Tabla DetallesCarrito
+CREATE TABLE DetallesCarrito(
+    idDetalleCarrito INT PRIMARY KEY,
+    idCarrito INT,
+    idProducto INT,
+    cantidad INT,
+    precioUnitario FLOAT,
+    subtotal FLOAT,
+    FOREIGN KEY(idCarrito) REFERENCES Carritos(idCarrito),
+    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
 );
-
--- Tabla FotoProductos
-CREATE TABLE FotoProductos (
-    IdFotoProducto INT PRIMARY KEY,
-    IdProducto INT,
-    UrlFoto VARCHAR(255),
-    Descripcion TEXT,
-    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+-- Tabla FotosProducto
+CREATE TABLE FotosProducto(
+    idFotoProducto INT PRIMARY KEY,
+    idProducto INT,
+    urlFoto VARCHAR(255),
+    descripcion TEXT,
+    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
 );
-
 -- Tabla DireccionesEnvio
-CREATE TABLE DireccionesEnvio (
-    IdDireccion INT PRIMARY KEY,
-    IdUsuario INT,
-    Direccion VARCHAR(255),
-    Ciudad VARCHAR(255),
-    Provincia VARCHAR(255),
-    Pais VARCHAR(255),
-    CodigoPostal VARCHAR(20),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
+CREATE TABLE DireccionesEnvio(
+    idDireccion INT PRIMARY KEY,
+    idUsuario INT,
+    department VARCHAR(255),
+    municipality VARCHAR(255),
+    city VARCHAR(255),
+    direccion VARCHAR(255),
+    pais VARCHAR(255),
+    codigoPostal VARCHAR(20),
+    fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultimaActualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
 );
-
--- Tabla ReviewsProductos
-CREATE TABLE ReviewsProductos (
-    IdReview INT PRIMARY KEY,
-    IdUsuario INT,
-    IdProducto INT,
-    Calificacion INT,
-    Comentario TEXT,
-    Fecha DATE,
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
-    FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
+-- Tabla ReviewsProducto
+CREATE TABLE ReviewsProducto(
+    idReview INT PRIMARY KEY,
+    idUsuario INT,
+    idProducto INT,
+    calificacion INT,
+    comentario TEXT,
+    fecha DATE,
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
 );
-
 -- Tabla CuponesDescuento
-CREATE TABLE CuponesDescuento (
-    IdCupon INT PRIMARY KEY,
-    Codigo VARCHAR(50),
-    Descuento FLOAT,
-    FechaInicio DATE,
-    FechaFin DATE,
-    Estado VARCHAR(255)
+CREATE TABLE CuponesDescuento(
+    idCupon INT PRIMARY KEY,
+    codigo VARCHAR(50),
+    descuento FLOAT,
+    fechaInicio DATE,
+    fechaFin DATE,
+    estado VARCHAR(255)
 );
-
--- Tabla HistorialPagos
-CREATE TABLE HistorialPagos (
-    IdHistorialPago INT PRIMARY KEY,
-    IdUsuario INT,
-    IdMetodoPago INT,
-    Fecha DATE,
-    Hora TIME,
-    Monto FLOAT,
-    Estado VARCHAR(255),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario),
-    FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPagos(IdMetodoPago)
+-- Tabla HistorialesPago
+CREATE TABLE HistorialesPago(
+    idHistorialPago INT PRIMARY KEY,
+    idUsuario INT,
+    idMetodoPago INT,
+    fecha DATE,
+    hora TIME,
+    monto FLOAT,
+    estado VARCHAR(255),
+    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY(idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
 );
-
-
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
 
