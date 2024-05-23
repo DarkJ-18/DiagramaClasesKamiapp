@@ -58,6 +58,7 @@ CREATE TABLE Productos(
     precio FLOAT,
     descripcion TEXT,
     imagen VARCHAR(255),
+    stock INT,
     FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido),
     FOREIGN KEY(idCategoria) REFERENCES Categorias(idCategoria)
 );
