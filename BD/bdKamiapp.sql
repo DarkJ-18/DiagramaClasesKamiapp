@@ -1,16 +1,3 @@
--- Tabla Usuarios
-CREATE TABLE Usuarios(
-    idUsuario INT PRIMARY KEY,
-    nombre VARCHAR(255),
-    apellido VARCHAR(255),
-    cedula VARCHAR(20),
-    direccion VARCHAR(255),
-    telefono VARCHAR(20),
-    correo VARCHAR(255),
-    nickname VARCHAR(255),
-    idRol INT,
-    FOREIGN KEY(idRol) REFERENCES RolesUsuarios(idRol)
-);
 -- Tabla RolesUsuarios
 CREATE TABLE RolesUsuarios(
     idRol INT PRIMARY KEY,
@@ -27,6 +14,19 @@ CREATE TABLE Categorias(
     idCategoria INT PRIMARY KEY,
     nombre VARCHAR(255),
     descripcion TEXT
+);
+-- Tabla Usuarios
+CREATE TABLE Usuarios(
+    idUsuario INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellido VARCHAR(255),
+    cedula VARCHAR(20),
+    direccion VARCHAR(255),
+    telefono VARCHAR(20),
+    correo VARCHAR(255),
+    nickname VARCHAR(255),
+    idRol INT,
+    FOREIGN KEY(idRol) REFERENCES RolesUsuarios(idRol)
 );
 -- Tabla Carritos
 CREATE TABLE Carritos(
@@ -191,6 +191,9 @@ CREATE TABLE HistorialesPago(
     FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
     FOREIGN KEY(idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
 );
+
+
+
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
 
