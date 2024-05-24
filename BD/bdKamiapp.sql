@@ -213,6 +213,7 @@ CREATE TABLE HistorialesPago(
 -- Relación con RolesUsuarios: Cada usuario tiene un rol específico (Usuario.IdRol).
 -- RolesUsuarios:
 
+
 -- Relación con Usuario: Un rol puede ser asignado a varios usuarios (Usuario.IdRol).
 -- MetodoPagos:
 
