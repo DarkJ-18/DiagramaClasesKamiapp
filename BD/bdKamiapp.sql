@@ -1,22 +1,5 @@
--- Tabla RolesUsuarios
-CREATE TABLE RolesUsuarios(
-    idRol INT PRIMARY KEY,
-    nombreRol VARCHAR(255)
-);
--- Tabla MetodosPago
-CREATE TABLE MetodosPago(
-    idMetodoPago INT PRIMARY KEY,
-    nombre VARCHAR(255),
-    descripcion TEXT
-);
--- Tabla Categorias
-CREATE TABLE Categorias(
-    idCategoria INT PRIMARY KEY,
-    nombre VARCHAR(255),
-    descripcion TEXT
-);
 -- Tabla Usuarios
-CREATE TABLE Usuarios(
+CREATE TABLE Usuarios (
     idUsuario INT PRIMARY KEY,
     nombre VARCHAR(255),
     apellido VARCHAR(255),
@@ -26,153 +9,186 @@ CREATE TABLE Usuarios(
     correo VARCHAR(255),
     nickname VARCHAR(255),
     idRol INT,
-    FOREIGN KEY(idRol) REFERENCES RolesUsuarios(idRol)
+    FOREIGN KEY (idRol) REFERENCES RolesUsuarios(idRol)
 );
+
+-- Tabla RolesUsuarios
+CREATE TABLE RolesUsuarios (
+    idRol INT PRIMARY KEY,
+    nombreRol VARCHAR(255)
+);
+
+-- Tabla MetodosPago
+CREATE TABLE MetodosPago (
+    idMetodoPago INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT
+);
+
+-- Tabla Categorias
+CREATE TABLE Categorias (
+    idCategoria INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT
+);
+
 -- Tabla Carritos
-CREATE TABLE Carritos(
+CREATE TABLE Carritos (
     idCarrito INT PRIMARY KEY,
     idUsuario INT,
     fecha DATE,
     hora TIME,
     estado VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
+
 -- Tabla Pedidos
-CREATE TABLE Pedidos(
+CREATE TABLE Pedidos (
     idPedido INT PRIMARY KEY,
     idUsuario INT,
     idCarrito INT,
-    -- Relación con Carritos
     hora TIME,
     fechaPedido DATE,
     estado VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY(idCarrito) REFERENCES Carritos(idCarrito) -- Clave foránea a Carritos
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito)
 );
+
 -- Tabla Productos
-CREATE TABLE Productos(
+CREATE TABLE Productos (
     idProducto INT PRIMARY KEY,
-    idPedido INT,
-    idCategoria INT,
     nombre VARCHAR(255),
     precio FLOAT,
     descripcion TEXT,
-    imagen VARCHAR(255),
-    stock INT,
-    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido),
-    FOREIGN KEY(idCategoria) REFERENCES Categorias(idCategoria)
+    imagen VARCHAR(255)
 );
+
+-- Tabla ProductosCategorias
+CREATE TABLE ProductosCategorias (
+    idProducto INT,
+    idCategoria INT,
+    PRIMARY KEY (idProducto, idCategoria),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
+    FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
+);
+
 -- Tabla Suscripciones
-CREATE TABLE Suscripciones(
+CREATE TABLE Suscripciones (
     idSuscripcion INT PRIMARY KEY,
     idUsuario INT,
     tipoSuscripcion VARCHAR(255),
     fechaInicio DATE,
     fechaFin DATE,
     estado VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
+
 -- Tabla Facturas
-CREATE TABLE Facturas(
+CREATE TABLE Facturas (
     idFactura INT PRIMARY KEY,
     idUsuario INT,
     idMetodoPago INT,
     idPedido INT,
-    -- Relación con Pedidos
     fecha DATE,
     hora TIME,
     total FLOAT,
     estadoPago VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY(idMetodoPago) REFERENCES MetodosPago(idMetodoPago),
-    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido) -- Clave foránea a Pedidos
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago),
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
 );
+
 -- Tabla DetallesFactura
-CREATE TABLE DetallesFactura(
+CREATE TABLE DetallesFactura (
     idDetalleFactura INT PRIMARY KEY,
     idFactura INT,
     idProducto INT,
     cantidad INT,
     precioUnitario FLOAT,
     subtotal FLOAT,
-    FOREIGN KEY(idFactura) REFERENCES Facturas(idFactura),
-    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
+    FOREIGN KEY (idFactura) REFERENCES Facturas(idFactura),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
+
 -- Tabla Chats
-CREATE TABLE Chats(
+CREATE TABLE Chats (
     idChat INT PRIMARY KEY,
     idUsuario INT,
     fecha DATE,
     hora TIME,
     mensaje TEXT,
     fotoProducto VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
+
 -- Tabla Notificaciones
-CREATE TABLE Notificaciones(
+CREATE TABLE Notificaciones (
     idNotificacion INT PRIMARY KEY,
     idPedido INT,
     fecha DATE,
     hora TIME,
     notificacionPedido TEXT,
-    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido)
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
 );
+
 -- Tabla Comprobantes
-CREATE TABLE Comprobantes(
+CREATE TABLE Comprobantes (
     idComprobante INT PRIMARY KEY,
     idPedido INT,
     fecha DATE,
     total FLOAT,
     detalles TEXT,
     estadoPago VARCHAR(255),
-    FOREIGN KEY(idPedido) REFERENCES Pedidos(idPedido)
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
 );
--- Tabla DetallesCarrito
-CREATE TABLE DetallesCarrito(
+
+-- Tabla DetallesCarritos
+CREATE TABLE DetallesCarritos (
     idDetalleCarrito INT PRIMARY KEY,
     idCarrito INT,
     idProducto INT,
     cantidad INT,
     precioUnitario FLOAT,
     subtotal FLOAT,
-    FOREIGN KEY(idCarrito) REFERENCES Carritos(idCarrito),
-    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
+    FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
--- Tabla FotosProducto
-CREATE TABLE FotosProducto(
+
+-- Tabla FotosProductos
+CREATE TABLE FotosProductos (
     idFotoProducto INT PRIMARY KEY,
     idProducto INT,
     urlFoto VARCHAR(255),
     descripcion TEXT,
-    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
+
 -- Tabla DireccionesEnvio
-CREATE TABLE DireccionesEnvio(
+CREATE TABLE DireccionesEnvio (
     idDireccion INT PRIMARY KEY,
     idUsuario INT,
-    department VARCHAR(255),
-    municipality VARCHAR(255),
-    city VARCHAR(255),
     direccion VARCHAR(255),
+    ciudad VARCHAR(255),
+    provincia VARCHAR(255),
     pais VARCHAR(255),
     codigoPostal VARCHAR(20),
-    fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    ultimaActualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
--- Tabla ReviewsProducto
-CREATE TABLE ReviewsProducto(
+
+-- Tabla ReviewsProductos
+CREATE TABLE ReviewsProductos (
     idReview INT PRIMARY KEY,
     idUsuario INT,
     idProducto INT,
     calificacion INT,
     comentario TEXT,
     fecha DATE,
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY(idProducto) REFERENCES Productos(idProducto)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
+
 -- Tabla CuponesDescuento
-CREATE TABLE CuponesDescuento(
+CREATE TABLE CuponesDescuento (
     idCupon INT PRIMARY KEY,
     codigo VARCHAR(50),
     descuento FLOAT,
@@ -180,8 +196,9 @@ CREATE TABLE CuponesDescuento(
     fechaFin DATE,
     estado VARCHAR(255)
 );
+
 -- Tabla HistorialesPago
-CREATE TABLE HistorialesPago(
+CREATE TABLE HistorialesPago (
     idHistorialPago INT PRIMARY KEY,
     idUsuario INT,
     idMetodoPago INT,
@@ -189,15 +206,33 @@ CREATE TABLE HistorialesPago(
     hora TIME,
     monto FLOAT,
     estado VARCHAR(255),
-    FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY(idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
+);
+
+-- Tabla intermedia UsuariosRoles
+CREATE TABLE UsuariosRoles (
+    idUsuario INT,
+    idRol INT,
+    PRIMARY KEY (idUsuario, idRol),
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idRol) REFERENCES RolesUsuarios(idRol)
+);
+
+-- Tabla intermedia PedidosProductos
+CREATE TABLE PedidosProductos (
+    idPedido INT,
+    idProducto INT,
+    cantidad INT,
+    PRIMARY KEY (idPedido, idProducto),
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
 
 
 
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
-
 
 -- Usuario:
 
@@ -211,10 +246,11 @@ CREATE TABLE HistorialesPago(
 -- Relación con ReviewsProductos: Un usuario puede dejar varias reseñas de productos (ReviewsProductos.IdUsuario).
 -- Relación con HistorialPagos: Un usuario puede tener múltiples registros en el historial de pagos (HistorialPagos.IdUsuario).
 -- Relación con RolesUsuarios: Cada usuario tiene un rol específico (Usuario.IdRol).
+-- Relación de muchos a muchos con RolesUsuarios a través de la tabla intermedia UsuarioRoles.
 -- RolesUsuarios:
 
-
 -- Relación con Usuario: Un rol puede ser asignado a varios usuarios (Usuario.IdRol).
+-- Relación de muchos a muchos con Usuario a través de la tabla intermedia UsuarioRoles.
 -- MetodoPagos:
 
 -- Relación con Facturas: Cada factura está asociada a un método de pago específico (Facturas.IdMetodoPago).
@@ -222,6 +258,7 @@ CREATE TABLE HistorialesPago(
 -- Categorias:
 
 -- Relación con Producto: Cada producto pertenece a una categoría (Producto.IdCategoria).
+-- Relación de muchos a muchos con Producto a través de la tabla intermedia ProductoCategorias.
 -- Carritos:
 
 -- Relación con Pedido: Un carrito se asocia con un pedido (Pedido.IdCarrito).
@@ -232,6 +269,7 @@ CREATE TABLE HistorialesPago(
 -- Relación con Facturas: Un pedido puede estar asociado con una factura (Facturas.IdPedido).
 -- Relación con Notificacion: Un pedido puede generar varias notificaciones (Notificacion.IdPedido).
 -- Relación con Comprobante: Un pedido puede tener varios comprobantes (Comprobante.IdPedido).
+-- Relación de muchos a muchos con Producto a través de la tabla intermedia PedidoProductos.
 -- Suscripciones:
 
 -- Relación con Usuario: Cada suscripción pertenece a un usuario (Suscripciones.IdUsuario).
@@ -243,6 +281,8 @@ CREATE TABLE HistorialesPago(
 -- Relación con DetalleCarritos: Cada detalle de carrito está asociado a un producto (DetalleCarritos.IdProducto).
 -- Relación con FotoProductos: Cada foto de producto está asociada a un producto (FotoProductos.IdProducto).
 -- Relación con ReviewsProductos: Cada review de producto está asociado a un producto (ReviewsProductos.IdProducto).
+-- Relación de muchos a muchos con Pedido a través de la tabla intermedia PedidoProductos.
+-- Relación de muchos a muchos con Categorias a través de la tabla intermedia ProductoCategorias.
 -- Facturas:
 
 -- Relación con Usuario: Cada factura pertenece a un usuario (Facturas.IdUsuario).
@@ -281,3 +321,15 @@ CREATE TABLE HistorialesPago(
 
 -- Relación con Usuario: Cada registro de pago pertenece a un usuario (HistorialPagos.IdUsuario).
 -- Relación con MetodoPagos: Cada registro de pago utiliza un método de pago específico (HistorialPagos.IdMetodoPago).
+-- UsuarioRoles:
+
+-- Relación con Usuario: Cada registro en la tabla intermedia UsuarioRoles asocia un usuario con un rol (UsuarioRoles.IdUsuario).
+-- Relación con RolesUsuarios: Cada registro en la tabla intermedia UsuarioRoles asocia un rol con un usuario (UsuarioRoles.IdRol).
+-- PedidoProductos:
+
+-- Relación con Pedido: Cada registro en la tabla intermedia PedidoProductos asocia un pedido con un producto (PedidoProductos.IdPedido).
+-- Relación con Producto: Cada registro en la tabla intermedia PedidoProductos asocia un producto con un pedido (PedidoProductos.IdProducto).
+-- ProductoCategorias:
+
+-- Relación con Producto: Cada registro en la tabla intermedia ProductoCategorias asocia un producto con una categoría (ProductoCategorias.IdProducto).
+-- Relación con Categorias: Cada registro en la tabla intermedia ProductoCategorias asocia una categoría con un producto (ProductoCategorias.IdCategoria).
