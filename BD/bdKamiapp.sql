@@ -168,10 +168,10 @@ CREATE TABLE DireccionesEnvio (
     idDireccion INT PRIMARY KEY,
     idUsuario INT,
     direccion VARCHAR(255),
-    ciudad VARCHAR(255),
-    provincia VARCHAR(255),
-    pais VARCHAR(255),
-    codigoPostal VARCHAR(20),
+    department VARCHAR(255),
+    municipality VARCHAR(255),
+    city VARCHAR(255),
+    street VARCHAR(255),
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
 
