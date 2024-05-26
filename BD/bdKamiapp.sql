@@ -1,5 +1,5 @@
--- Tabla RolesUsuarios
-CREATE TABLE RolesUsuarios (
+-- Tabla Roles
+CREATE TABLE Roles (
     idRol INT PRIMARY KEY,
     nombreRol VARCHAR(255)
 );
@@ -13,9 +13,16 @@ CREATE TABLE Usuarios (
     direccion VARCHAR(255),
     telefono VARCHAR(20),
     correo VARCHAR(255),
-    nickname VARCHAR(255),
+    nickname VARCHAR(255)
+);
+
+-- Tabla UsuariosRoles (Tabla intermedia para la relación muchos a muchos)
+CREATE TABLE UsuariosRoles (
+    idUsuario INT,
     idRol INT,
-    FOREIGN KEY (idRol) REFERENCES RolesUsuarios(idRol)
+    PRIMARY KEY (idUsuario, idRol),
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+    FOREIGN KEY (idRol) REFERENCES Roles(idRol)
 );
 
 -- Tabla MetodosPago
@@ -41,6 +48,15 @@ CREATE TABLE Productos (
     imagen VARCHAR(255)
 );
 
+-- Tabla ProductosCategorias (Tabla intermedia para la relación muchos a muchos)
+CREATE TABLE ProductosCategorias (
+    idProducto INT,
+    idCategoria INT,
+    PRIMARY KEY (idProducto, idCategoria),
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
+    FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
+);
+
 -- Tabla Carritos
 CREATE TABLE Carritos (
     idCarrito INT PRIMARY KEY,
@@ -61,15 +77,6 @@ CREATE TABLE Pedidos (
     estado VARCHAR(255),
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
     FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito)
-);
-
--- Tabla ProductosCategorias
-CREATE TABLE ProductosCategorias (
-    idProducto INT,
-    idCategoria INT,
-    PRIMARY KEY (idProducto, idCategoria),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
-    FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
 );
 
 -- Tabla Suscripciones
@@ -210,16 +217,7 @@ CREATE TABLE HistorialesPago (
     FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
 );
 
--- Tabla intermedia UsuariosRoles
-CREATE TABLE UsuariosRoles (
-    idUsuario INT,
-    idRol INT,
-    PRIMARY KEY (idUsuario, idRol),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idRol) REFERENCES RolesUsuarios(idRol)
-);
-
--- Tabla intermedia PedidosProductos
+-- Tabla intermedia PedidosProductos (Tabla intermedia para la relación muchos a muchos)
 CREATE TABLE PedidosProductos (
     idPedido INT,
     idProducto INT,
@@ -228,7 +226,6 @@ CREATE TABLE PedidosProductos (
     FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido),
     FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
-
 
 
 -------------------------------------------------------------------------
