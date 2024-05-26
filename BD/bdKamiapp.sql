@@ -1,3 +1,9 @@
+-- Tabla RolesUsuarios
+CREATE TABLE RolesUsuarios (
+    idRol INT PRIMARY KEY,
+    nombreRol VARCHAR(255)
+);
+
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     idUsuario INT PRIMARY KEY,
@@ -12,12 +18,6 @@ CREATE TABLE Usuarios (
     FOREIGN KEY (idRol) REFERENCES RolesUsuarios(idRol)
 );
 
--- Tabla RolesUsuarios
-CREATE TABLE RolesUsuarios (
-    idRol INT PRIMARY KEY,
-    nombreRol VARCHAR(255)
-);
-
 -- Tabla MetodosPago
 CREATE TABLE MetodosPago (
     idMetodoPago INT PRIMARY KEY,
@@ -30,6 +30,15 @@ CREATE TABLE Categorias (
     idCategoria INT PRIMARY KEY,
     nombre VARCHAR(255),
     descripcion TEXT
+);
+
+-- Tabla Productos
+CREATE TABLE Productos (
+    idProducto INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    precio FLOAT,
+    descripcion TEXT,
+    imagen VARCHAR(255)
 );
 
 -- Tabla Carritos
@@ -52,15 +61,6 @@ CREATE TABLE Pedidos (
     estado VARCHAR(255),
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
     FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito)
-);
-
--- Tabla Productos
-CREATE TABLE Productos (
-    idProducto INT PRIMARY KEY,
-    nombre VARCHAR(255),
-    precio FLOAT,
-    descripcion TEXT,
-    imagen VARCHAR(255)
 );
 
 -- Tabla ProductosCategorias
