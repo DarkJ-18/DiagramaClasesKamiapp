@@ -55,7 +55,7 @@ CREATE TABLE ProductosCategorias (
     PRIMARY KEY (idProducto, idCategoria),
     FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
     FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
-);
+);  
 
 -- Tabla Carritos
 CREATE TABLE Carritos (
