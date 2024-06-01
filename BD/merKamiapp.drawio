@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="cl9pHFJJxzllaQqiW4cm" name="Página-1">
-        <mxGraphModel dx="1386" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1386" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="7" value="Usuarios" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;strokeColor=#000000;fillColor=none;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
+                <mxCell id="7" value="Usuarios" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;strokeColor=#FF33FF;fillColor=none;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
                     <mxGeometry x="40" y="80" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="35" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;strokeColor=#000000;fontSize=9;" parent="1" source="13" edge="1">
@@ -1348,7 +1348,7 @@
                 <mxCell id="507" value="Cantidad" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillStyle=auto;strokeWidth=1;fontSize=9;" parent="1" vertex="1">
                     <mxGeometry x="1200" y="1080" width="60" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="523" value="Roles" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;strokeColor=#000000;fillColor=none;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
+                <mxCell id="523" value="Roles" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;gradientDirection=south;strokeColor=#FF33FF;" parent="1" vertex="1">
                     <mxGeometry x="228.3" y="256.25" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="524" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;strokeColor=#000000;fontSize=9;" parent="1" source="525" edge="1">
@@ -1412,14 +1412,14 @@
                 <mxCell id="538" value="idRol" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillStyle=auto;strokeWidth=1;fontSize=9;" parent="1" vertex="1">
                     <mxGeometry x="358.3" y="357.5" width="60" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="543" value="" style="endArrow=none;html=1;rounded=0;elbow=vertical;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="7" target="531" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="360" y="170" as="sourcePoint"/>
-                        <mxPoint x="520" y="170" as="targetPoint"/>
-                    </mxGeometry>
+                <mxCell id="545" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="544" target="7">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="544" value="N" style="resizable=0;html=1;align=right;verticalAlign=bottom;fillColor=default;gradientColor=default;gradientDirection=west;" parent="543" connectable="0" vertex="1">
-                    <mxGeometry x="1" relative="1" as="geometry"/>
+                <mxCell id="547" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="544" target="523">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="544" value="Relationship" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="45" y="220" width="90" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

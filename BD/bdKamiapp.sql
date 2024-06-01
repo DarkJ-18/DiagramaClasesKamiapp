@@ -231,102 +231,61 @@ CREATE TABLE PedidosProductos (
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
 
--- Usuario:
+-- Usuarios y UsuariosRoles (Relación muchos a muchos)
 
--- Relación con Pedido: Un usuario puede realizar varios pedidos (Pedido.IdUsuario).
--- Relación con Carritos: Un usuario puede tener varios carritos (Carritos.IdUsuario).
--- Relación con Facturas: Un usuario puede tener varias facturas (Facturas.IdUsuario).
--- Relación con Chat: Un usuario puede enviar varios mensajes en el chat (Chat.IdUsuario).
--- Relación con Notificacion: Un usuario puede recibir varias notificaciones (Notificacion.IdUsuario).
--- Relación con Suscripciones: Un usuario puede tener varias suscripciones (Suscripciones.IdUsuario).
--- Relación con DireccionesEnvio: Un usuario puede tener múltiples direcciones de envío (DireccionesEnvio.IdUsuario).
--- Relación con ReviewsProductos: Un usuario puede dejar varias reseñas de productos (ReviewsProductos.IdUsuario).
--- Relación con HistorialPagos: Un usuario puede tener múltiples registros en el historial de pagos (HistorialPagos.IdUsuario).
--- Relación con RolesUsuarios: Cada usuario tiene un rol específico (Usuario.IdRol).
--- Relación de muchos a muchos con RolesUsuarios a través de la tabla intermedia UsuarioRoles.
--- RolesUsuarios:
+-- Usuarios.idUsuario ↔ UsuariosRoles.idUsuario
+-- Roles.idRol ↔ UsuariosRoles.idRol
+-- Productos y ProductosCategorias (Relación muchos a muchos)
 
--- Relación con Usuario: Un rol puede ser asignado a varios usuarios (Usuario.IdRol).
--- Relación de muchos a muchos con Usuario a través de la tabla intermedia UsuarioRoles.
--- MetodoPagos:
+-- Productos.idProducto ↔ ProductosCategorias.idProducto
+-- Categorias.idCategoria ↔ ProductosCategorias.idCategoria
+-- Usuarios y Carritos (Relación uno a muchos)
 
--- Relación con Facturas: Cada factura está asociada a un método de pago específico (Facturas.IdMetodoPago).
--- Relación con HistorialPagos: Cada registro de pago utiliza un método de pago específico (HistorialPagos.IdMetodoPago).
--- Categorias:
+-- Usuarios.idUsuario ↔ Carritos.idUsuario
+-- Usuarios y Pedidos (Relación uno a muchos)
 
--- Relación con Producto: Cada producto pertenece a una categoría (Producto.IdCategoria).
--- Relación de muchos a muchos con Producto a través de la tabla intermedia ProductoCategorias.
--- Carritos:
+-- Usuarios.idUsuario ↔ Pedidos.idUsuario
+-- Carritos.idCarrito ↔ Pedidos.idCarrito (Relación uno a muchos)
+-- Usuarios y Suscripciones (Relación uno a muchos)
 
--- Relación con Pedido: Un carrito se asocia con un pedido (Pedido.IdCarrito).
--- Pedido:
+-- Usuarios.idUsuario ↔ Suscripciones.idUsuario
+-- Usuarios y Facturas (Relación uno a muchos)
 
--- Relación con Carritos: Un pedido se origina a partir de un carrito (Pedido.IdCarrito).
--- Relación con Producto: Un pedido puede contener varios productos (Producto.IdPedido).
--- Relación con Facturas: Un pedido puede estar asociado con una factura (Facturas.IdPedido).
--- Relación con Notificacion: Un pedido puede generar varias notificaciones (Notificacion.IdPedido).
--- Relación con Comprobante: Un pedido puede tener varios comprobantes (Comprobante.IdPedido).
--- Relación de muchos a muchos con Producto a través de la tabla intermedia PedidoProductos.
--- Suscripciones:
+-- Usuarios.idUsuario ↔ Facturas.idUsuario
+-- MetodosPago.idMetodoPago ↔ Facturas.idMetodoPago (Relación uno a muchos)
+-- Pedidos.idPedido ↔ Facturas.idPedido (Relación uno a uno)
+-- Facturas y DetallesFactura (Relación uno a muchos)
 
--- Relación con Usuario: Cada suscripción pertenece a un usuario (Suscripciones.IdUsuario).
--- Producto:
+-- Facturas.idFactura ↔ DetallesFactura.idFactura
+-- Productos.idProducto ↔ DetallesFactura.idProducto (Relación uno a muchos)
+-- Usuarios y Chats (Relación uno a muchos)
 
--- Relación con Pedido: Un producto puede estar presente en varios pedidos (Producto.IdPedido).
--- Relación con Categorias: Cada producto pertenece a una categoría (Producto.IdCategoria).
--- Relación con DetallesFactura: Cada detalle de factura está asociado a un producto (DetallesFactura.IdProducto).
--- Relación con DetalleCarritos: Cada detalle de carrito está asociado a un producto (DetalleCarritos.IdProducto).
--- Relación con FotoProductos: Cada foto de producto está asociada a un producto (FotoProductos.IdProducto).
--- Relación con ReviewsProductos: Cada review de producto está asociado a un producto (ReviewsProductos.IdProducto).
--- Relación de muchos a muchos con Pedido a través de la tabla intermedia PedidoProductos.
--- Relación de muchos a muchos con Categorias a través de la tabla intermedia ProductoCategorias.
--- Facturas:
+-- Usuarios.idUsuario ↔ Chats.idUsuario
+-- Pedidos y Notificaciones (Relación uno a muchos)
 
--- Relación con Usuario: Cada factura pertenece a un usuario (Facturas.IdUsuario).
--- Relación con MetodoPagos: Cada factura utiliza un método de pago específico (Facturas.IdMetodoPago).
--- Relación con Pedido: Cada factura está asociada a un pedido (Facturas.IdPedido).
--- Relación con DetallesFactura: Cada detalle de factura está asociado a una factura (DetallesFactura.IdFactura).
--- DetallesFactura:
+-- Pedidos.idPedido ↔ Notificaciones.idPedido
+-- Pedidos y Comprobantes (Relación uno a uno)
 
--- Relación con Facturas: Cada detalle de factura está asociado a una factura (DetallesFactura.IdFactura).
--- Relación con Producto: Cada detalle de factura está asociado a un producto (DetallesFactura.IdProducto).
--- Chat:
+-- Pedidos.idPedido ↔ Comprobantes.idPedido
+-- Carritos y DetallesCarritos (Relación uno a muchos)
 
--- Relación con Usuario: Cada mensaje en el chat es enviado por un usuario (Chat.IdUsuario).
--- Notificacion:
+-- Carritos.idCarrito ↔ DetallesCarritos.idCarrito
+-- Productos.idProducto ↔ DetallesCarritos.idProducto (Relación uno a muchos)
+-- Productos y FotosProductos (Relación uno a muchos)
 
--- Relación con Usuario: Cada notificación está dirigida a un usuario (Notificacion.IdUsuario).
--- Relación con Pedido: Cada notificación está asociada a un pedido (Notificacion.IdPedido).
--- Comprobante:
+-- Productos.idProducto ↔ FotosProductos.idProducto
+-- Usuarios y DireccionesEnvio (Relación uno a muchos)
 
--- Relación con Pedido: Cada comprobante está asociado a un pedido (Comprobante.IdPedido).
--- DetalleCarritos:
+-- Usuarios.idUsuario ↔ DireccionesEnvio.idUsuario
+-- Usuarios y ReviewsProductos (Relación uno a muchos)
 
--- Relación con Carritos: Cada detalle de carrito está asociado a un carrito (DetalleCarritos.IdCarrito).
--- Relación con Producto: Cada detalle de carrito está asociado a un producto (DetalleCarritos.IdProducto).
--- FotoProductos:
+-- Usuarios.idUsuario ↔ ReviewsProductos.idUsuario
+-- Productos.idProducto ↔ ReviewsProductos.idProducto (Relación uno a muchos)
+-- Usuarios y HistorialesPago (Relación uno a muchos)
 
--- Relación con Producto: Cada foto de producto está asociada a un producto (FotoProductos.IdProducto).
--- DireccionesEnvio:
+-- Usuarios.idUsuario ↔ HistorialesPago.idUsuario
+-- MetodosPago.idMetodoPago ↔ HistorialesPago.idMetodoPago (Relación uno a muchos)
+-- Pedidos y PedidosProductos (Relación muchos a muchos)
 
--- Relación con Usuario: Cada dirección de envío está asociada a un usuario (DireccionesEnvio.IdUsuario).
--- ReviewsProductos:
-
--- Relación con Usuario: Cada review de producto está asociado a un usuario (ReviewsProductos.IdUsuario).
--- Relación con Producto: Cada review de producto está asociado a un producto (ReviewsProductos.IdProducto).
--- HistorialPagos:
-
--- Relación con Usuario: Cada registro de pago pertenece a un usuario (HistorialPagos.IdUsuario).
--- Relación con MetodoPagos: Cada registro de pago utiliza un método de pago específico (HistorialPagos.IdMetodoPago).
--- UsuarioRoles:
-
--- Relación con Usuario: Cada registro en la tabla intermedia UsuarioRoles asocia un usuario con un rol (UsuarioRoles.IdUsuario).
--- Relación con RolesUsuarios: Cada registro en la tabla intermedia UsuarioRoles asocia un rol con un usuario (UsuarioRoles.IdRol).
--- PedidoProductos:
-
--- Relación con Pedido: Cada registro en la tabla intermedia PedidoProductos asocia un pedido con un producto (PedidoProductos.IdPedido).
--- Relación con Producto: Cada registro en la tabla intermedia PedidoProductos asocia un producto con un pedido (PedidoProductos.IdProducto).
--- ProductoCategorias:
-
--- Relación con Producto: Cada registro en la tabla intermedia ProductoCategorias asocia un producto con una categoría (ProductoCategorias.IdProducto).
--- Relación con Categorias: Cada registro en la tabla intermedia ProductoCategorias asocia una categoría con un producto (ProductoCategorias.IdCategoria).
+-- Pedidos.idPedido ↔ PedidosProductos.idPedido
+-- Productos.idProducto ↔ PedidosProductos.idProducto
