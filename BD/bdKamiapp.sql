@@ -233,6 +233,7 @@ CREATE TABLE PedidosProductos (
 
 -- Usuarios y UsuariosRoles (Relación muchos a muchos)
 
+
 -- Usuarios.idUsuario ↔ UsuariosRoles.idUsuario
 -- Roles.idRol ↔ UsuariosRoles.idRol
 -- Productos y ProductosCategorias (Relación muchos a muchos)
