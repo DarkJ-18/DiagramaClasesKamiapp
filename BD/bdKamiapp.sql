@@ -201,8 +201,11 @@ CREATE TABLE CuponesDescuento (
     descuento FLOAT,
     fechaInicio DATE,
     fechaFin DATE,
-    estado VARCHAR(255)
+    estado VARCHAR(255),
+    idUsuario INT, -- Clave foránea que referencia al usuario
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
+
 
 -- Tabla HistorialesPago
 CREATE TABLE HistorialesPago (
