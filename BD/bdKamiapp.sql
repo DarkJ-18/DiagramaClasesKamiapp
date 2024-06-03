@@ -1,97 +1,97 @@
 -- Tabla Roles
-CREATE TABLE Roles (
+CREATE TABLE IF NOT EXISTS Roles (
     idRol INT PRIMARY KEY,
     nombreRol VARCHAR(255)
 );
 
 -- Tabla Usuarios
-CREATE TABLE Usuarios (
+CREATE TABLE IF NOT EXISTS Usuarios (
     idUsuario INT PRIMARY KEY,
     nombre VARCHAR(255),
     apellido VARCHAR(255),
     cedula VARCHAR(20),
     direccion VARCHAR(255),
-    telefono VARCHAR(20),
+    telefono int(20),
     correo VARCHAR(255),
     nickname VARCHAR(255)
 );
 
 -- Tabla UsuariosRoles (Tabla intermedia para la relación muchos a muchos)
-CREATE TABLE UsuariosRoles (
+CREATE TABLE IF NOT EXISTS UsuariosRoles (
     idUsuario INT,
     idRol INT,
     PRIMARY KEY (idUsuario, idRol),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idRol) REFERENCES Roles(idRol)
+    CONSTRAINT fkUsuariosRolesUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkUsuariosRolesRoles FOREIGN KEY (idRol) REFERENCES Roles(idRol) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla MetodosPago
-CREATE TABLE MetodosPago (
+CREATE TABLE IF NOT EXISTS MetodosPago (
     idMetodoPago INT PRIMARY KEY,
     nombre VARCHAR(255),
     descripcion TEXT
 );
 
 -- Tabla Categorias
-CREATE TABLE Categorias (
+CREATE TABLE IF NOT EXISTS Categorias (
     idCategoria INT PRIMARY KEY,
     nombre VARCHAR(255),
     descripcion TEXT
 );
 
 -- Tabla Productos
-CREATE TABLE Productos (
+CREATE TABLE IF NOT EXISTS Productos (
     idProducto INT PRIMARY KEY,
     nombre VARCHAR(255),
-    precio FLOAT,
+    precio FLOAT UNSIGNED,
     descripcion TEXT,
     imagen VARCHAR(255)
 );
 
 -- Tabla ProductosCategorias (Tabla intermedia para la relación muchos a muchos)
-CREATE TABLE ProductosCategorias (
+CREATE TABLE IF NOT EXISTS ProductosCategorias (
     idProducto INT,
     idCategoria INT,
     PRIMARY KEY (idProducto, idCategoria),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
-    FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
-);  
+    CONSTRAINT fkProductosCategoriasProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkProductosCategoriasCategorias FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
 -- Tabla Carritos
-CREATE TABLE Carritos (
+CREATE TABLE IF NOT EXISTS Carritos (
     idCarrito INT PRIMARY KEY,
     idUsuario INT,
-    fecha DATE,
+    fecha DATE ,
     hora TIME,
     estado VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+    CONSTRAINT fkCarritosUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Pedidos
-CREATE TABLE Pedidos (
+CREATE TABLE IF NOT EXISTS Pedidos (
     idPedido INT PRIMARY KEY,
     idUsuario INT,
     idCarrito INT,
     hora TIME,
     fechaPedido DATE,
     estado VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito)
+    CONSTRAINT fkPedidosUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkPedidosCarritos FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Suscripciones
-CREATE TABLE Suscripciones (
+CREATE TABLE IF NOT EXISTS Suscripciones (
     idSuscripcion INT PRIMARY KEY,
     idUsuario INT,
     tipoSuscripcion VARCHAR(255),
     fechaInicio DATE,
     fechaFin DATE,
     estado VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+    CONSTRAINT fkSuscripcionesUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Facturas
-CREATE TABLE Facturas (
+CREATE TABLE IF NOT EXISTS Facturas (
     idFactura INT PRIMARY KEY,
     idUsuario INT,
     idMetodoPago INT,
@@ -100,78 +100,78 @@ CREATE TABLE Facturas (
     hora TIME,
     total FLOAT,
     estadoPago VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago),
-    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
+    CONSTRAINT fkFacturasUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkFacturasMetodosPago FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkFacturasPedidos FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla DetallesFactura
-CREATE TABLE DetallesFactura (
+CREATE TABLE IF NOT EXISTS DetallesFactura (
     idDetalleFactura INT PRIMARY KEY,
     idFactura INT,
     idProducto INT,
     cantidad INT,
     precioUnitario FLOAT,
     subtotal FLOAT,
-    FOREIGN KEY (idFactura) REFERENCES Facturas(idFactura),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+    CONSTRAINT fkDetallesFacturaFacturas FOREIGN KEY (idFactura) REFERENCES Facturas(idFactura) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkDetallesFacturaProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Chats
-CREATE TABLE Chats (
+CREATE TABLE IF NOT EXISTS Chats (
     idChat INT PRIMARY KEY,
     idUsuario INT,
     fecha DATE,
     hora TIME,
     mensaje TEXT,
     fotoProducto VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+    CONSTRAINT fkChatsUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Notificaciones
-CREATE TABLE Notificaciones (
+CREATE TABLE IF NOT EXISTS Notificaciones (
     idNotificacion INT PRIMARY KEY,
     idPedido INT,
     fecha DATE,
     hora TIME,
     notificacionPedido TEXT,
-    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
+    CONSTRAINT fkNotificacionesPedidos FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla Comprobantes
-CREATE TABLE Comprobantes (
+CREATE TABLE IF NOT EXISTS Comprobantes (
     idComprobante INT PRIMARY KEY,
     idPedido INT,
     fecha DATE,
     total FLOAT,
     detalles TEXT,
     estadoPago VARCHAR(255),
-    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
+    CONSTRAINT fkComprobantesPedidos FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla DetallesCarritos
-CREATE TABLE DetallesCarritos (
+CREATE TABLE IF NOT EXISTS DetallesCarritos (
     idDetalleCarrito INT PRIMARY KEY,
     idCarrito INT,
     idProducto INT,
     cantidad INT,
     precioUnitario FLOAT,
     subtotal FLOAT,
-    FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+    CONSTRAINT fkDetallesCarritosCarritos FOREIGN KEY (idCarrito) REFERENCES Carritos(idCarrito) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkDetallesCarritosProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla FotosProductos
-CREATE TABLE FotosProductos (
+CREATE TABLE IF NOT EXISTS FotosProductos (
     idFotoProducto INT PRIMARY KEY,
     idProducto INT,
     urlFoto VARCHAR(255),
     descripcion TEXT,
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+    CONSTRAINT fkFotosProductosProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla DireccionesEnvio
-CREATE TABLE DireccionesEnvio (
+CREATE TABLE IF NOT EXISTS DireccionesEnvio (
     idDireccion INT PRIMARY KEY,
     idUsuario INT,
     direccion VARCHAR(255),
@@ -179,23 +179,23 @@ CREATE TABLE DireccionesEnvio (
     municipality VARCHAR(255),
     city VARCHAR(255),
     street VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+    CONSTRAINT fkDireccionesEnvioUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla ReviewsProductos
-CREATE TABLE ReviewsProductos (
+CREATE TABLE IF NOT EXISTS ReviewsProductos (
     idReview INT PRIMARY KEY,
     idUsuario INT,
     idProducto INT,
     calificacion INT,
     comentario TEXT,
     fecha DATE,
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+    CONSTRAINT fkReviewsProductosUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkReviewsProductosProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla CuponesDescuento
-CREATE TABLE CuponesDescuento (
+CREATE TABLE IF NOT EXISTS CuponesDescuento (
     idCupon INT PRIMARY KEY,
     codigo VARCHAR(50),
     descuento FLOAT,
@@ -203,12 +203,11 @@ CREATE TABLE CuponesDescuento (
     fechaFin DATE,
     estado VARCHAR(255),
     idUsuario INT, -- Clave foránea que referencia al usuario
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
+    CONSTRAINT fkCuponesDescuentoUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
 -- Tabla HistorialesPago
-CREATE TABLE HistorialesPago (
+CREATE TABLE IF NOT EXISTS HistorialesPago (
     idHistorialPago INT PRIMARY KEY,
     idUsuario INT,
     idMetodoPago INT,
@@ -216,18 +215,18 @@ CREATE TABLE HistorialesPago (
     hora TIME,
     monto FLOAT,
     estado VARCHAR(255),
-    FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
-    FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago)
+    CONSTRAINT fkHistorialesPagoUsuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkHistorialesPagoMetodosPago FOREIGN KEY (idMetodoPago) REFERENCES MetodosPago(idMetodoPago) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Tabla intermedia PedidosProductos (Tabla intermedia para la relación muchos a muchos)
-CREATE TABLE PedidosProductos (
+CREATE TABLE IF NOT EXISTS PedidosProductos (
     idPedido INT,
     idProducto INT,
     cantidad INT,
     PRIMARY KEY (idPedido, idProducto),
-    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido),
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+    CONSTRAINT fkPedidosProductosPedidos FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fkPedidosProductosProductos FOREIGN KEY (idProducto) REFERENCES Productos(idProducto) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
