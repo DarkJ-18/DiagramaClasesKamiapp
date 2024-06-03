@@ -234,62 +234,50 @@ CREATE TABLE PedidosProductos (
 -------------------------------------------------------------------------
 -- Relaciones entre tablas
 
--- Usuarios y UsuariosRoles (Relación muchos a muchos)
+-- 1. **Usuarios y UsuariosRoles** (Relación muchos a muchos)
 
+--    - **Descripción**: Un usuario puede tener múltiples roles y un rol puede ser asignado a múltiples usuarios. Esto se maneja a través de la tabla intermedia UsuariosRoles.
 
--- Usuarios.idUsuario ↔ UsuariosRoles.idUsuario
--- Roles.idRol ↔ UsuariosRoles.idRol
--- Productos y ProductosCategorias (Relación muchos a muchos)
+-- 2. **Productos y ProductosCategorias** (Relación muchos a muchos)
+--    - **Descripción**: Un producto puede pertenecer a múltiples categorías y una categoría puede incluir múltiples productos. Esto se maneja a través de la tabla intermedia ProductosCategorias.
 
--- Productos.idProducto ↔ ProductosCategorias.idProducto
--- Categorias.idCategoria ↔ ProductosCategorias.idCategoria
--- Usuarios y Carritos (Relación uno a muchos)
+-- 3. **Usuarios y Carritos** (Relación uno a muchos)
+--    - **Descripción**: Un usuario puede tener múltiples carritos, pero un carrito pertenece a un solo usuario.
 
--- Usuarios.idUsuario ↔ Carritos.idUsuario
--- Usuarios y Pedidos (Relación uno a muchos)
+-- 4. **Usuarios y Pedidos** (Relación uno a muchos)
+--    - **Descripción**: Un usuario puede hacer múltiples pedidos, pero cada pedido es realizado por un solo usuario. Además, un carrito puede estar relacionado con múltiples pedidos, pero cada pedido se relaciona con un solo carrito.
 
--- Usuarios.idUsuario ↔ Pedidos.idUsuario
--- Carritos.idCarrito ↔ Pedidos.idCarrito (Relación uno a muchos)
--- Usuarios y Suscripciones (Relación uno a muchos)
+-- 5. **Usuarios y Suscripciones** (Relación uno a muchos)
+--    - **Descripción**: Un usuario puede tener múltiples suscripciones, pero cada suscripción pertenece a un solo usuario.
 
--- Usuarios.idUsuario ↔ Suscripciones.idUsuario
--- Usuarios y Facturas (Relación uno a muchos)
+-- 6. **Usuarios y Facturas** (Relación uno a muchos)
+--    - **Descripción**: Un usuario puede tener múltiples facturas, pero cada factura pertenece a un solo usuario. Cada factura se paga con un método de pago específico y se asocia a un único pedido.
 
--- Usuarios.idUsuario ↔ Facturas.idUsuario
--- MetodosPago.idMetodoPago ↔ Facturas.idMetodoPago (Relación uno a muchos)
--- Pedidos.idPedido ↔ Facturas.idPedido (Relación uno a uno)
--- Facturas y DetallesFactura (Relación uno a muchos)
+-- 7. **Facturas y DetallesFactura** (Relación uno a muchos)
+--    - **Descripción**: Una factura puede tener múltiples detalles, pero cada detalle pertenece a una sola factura. Cada detalle está relacionado con un único producto.
 
--- Facturas.idFactura ↔ DetallesFactura.idFactura
--- Productos.idProducto ↔ DetallesFactura.idProducto (Relación uno a muchos)
--- Usuarios y Chats (Relación uno a muchos)
+-- 8. **Usuarios y Chats** (Relación uno a muchos)
+--    - **Descripción**: Un usuario puede tener múltiples chats, pero cada chat pertenece a un solo usuario.
 
--- Usuarios.idUsuario ↔ Chats.idUsuario
--- Pedidos y Notificaciones (Relación uno a muchos)
+-- 9. **Pedidos y Notificaciones** (Relación uno a muchos)
+--    - **Descripción**: Un pedido puede tener múltiples notificaciones, pero cada notificación está asociada a un solo pedido.
 
--- Pedidos.idPedido ↔ Notificaciones.idPedido
--- Pedidos y Comprobantes (Relación uno a uno)
+-- 10. **Pedidos y Comprobantes** (Relación uno a uno)
+--     - **Descripción**: Un pedido tiene un único comprobante y cada comprobante está asociado a un solo pedido.
 
--- Pedidos.idPedido ↔ Comprobantes.idPedido
--- Carritos y DetallesCarritos (Relación uno a muchos)
+-- 11. **Carritos y DetallesCarritos** (Relación uno a muchos)
+--     - **Descripción**: Un carrito puede tener múltiples detalles, pero cada detalle pertenece a un solo carrito. Cada detalle del carrito está relacionado con un único producto.
 
--- Carritos.idCarrito ↔ DetallesCarritos.idCarrito
--- Productos.idProducto ↔ DetallesCarritos.idProducto (Relación uno a muchos)
--- Productos y FotosProductos (Relación uno a muchos)
+-- 12. **Productos y FotosProductos** (Relación uno a muchos)
+--     - **Descripción**: Un producto puede tener múltiples fotos, pero cada foto pertenece a un solo producto.
 
--- Productos.idProducto ↔ FotosProductos.idProducto
--- Usuarios y DireccionesEnvio (Relación uno a muchos)
+-- 13. **Usuarios y DireccionesEnvio** (Relación uno a muchos)
+--     - **Descripción**: Un usuario puede tener múltiples direcciones de envío, pero cada dirección de envío pertenece a un solo usuario.
 
--- Usuarios.idUsuario ↔ DireccionesEnvio.idUsuario
--- Usuarios y ReviewsProductos (Relación uno a muchos)
+-- 14. **Usuarios y ReviewsProductos** (Relación uno a muchos)
+--     - **Descripción**: Un usuario puede hacer múltiples reseñas, pero cada reseña pertenece a un solo usuario. Cada reseña está relacionada con un único producto.
 
--- Usuarios.idUsuario ↔ ReviewsProductos.idUsuario
--- Productos.idProducto ↔ ReviewsProductos.idProducto (Relación uno a muchos)
--- Usuarios y HistorialesPago (Relación uno a muchos)
+-- 15. **Usuarios y HistorialesPago** (Relación uno a muchos)    - **Descripción**: Un usuario puede tener múltiples registros en el historial de pagos, pero cada registro pertenece a un solo usuario. Cada registro está relacionado con un único método de pago.
 
--- Usuarios.idUsuario ↔ HistorialesPago.idUsuario
--- MetodosPago.idMetodoPago ↔ HistorialesPago.idMetodoPago (Relación uno a muchos)
--- Pedidos y PedidosProductos (Relación muchos a muchos)
-
--- Pedidos.idPedido ↔ PedidosProductos.idPedido
--- Productos.idProducto ↔ PedidosProductos.idProducto
+-- 16. **Pedidos y PedidosProductos** (Relación muchos a muchos)
+--     - **Descripción**: Un pedido puede incluir múltiples productos y un producto puede estar en múltiples pedidos. Esto se maneja a través de la tabla intermedia PedidosProductos.
