@@ -1425,7 +1425,7 @@
                 <mxCell id="916" value="1:1" style="rhombus;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF33FF;fillStyle=auto;gradientColor=none;gradientDirection=south;fontColor=#FFFFFF;labelBackgroundColor=none;" parent="1" vertex="1">
                     <mxGeometry x="820" y="410" width="40" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="921" value="DetalleCarritos" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;strokeColor=#FF33FF;fillColor=none;gradientColor=none;gradientDirection=south;fontColor=#FFFFFF;labelBackgroundColor=none;" parent="1" vertex="1">
+                <mxCell id="921" value="DetallesCarritos" style="whiteSpace=wrap;html=1;align=center;fillStyle=auto;strokeColor=#FF33FF;fillColor=none;gradientColor=none;gradientDirection=south;fontColor=#FFFFFF;labelBackgroundColor=none;" parent="1" vertex="1">
                     <mxGeometry x="69" y="834.3800000000001" width="100" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="922" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;strokeColor=#000000;fontSize=9;fontColor=#FFFFFF;labelBackgroundColor=none;" parent="1" source="923" edge="1">
