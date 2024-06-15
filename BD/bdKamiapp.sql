@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS Productos (
     nombre VARCHAR(255) NOT NULL,
     precio FLOAT NOT NULL,
     descripcion TEXT NOT NULL,
-    imagen VARCHAR(255) NOT NULL
 );
 
 -- Tabla ProductosCategorias (Tabla intermedia para la relación muchos a muchos)
@@ -175,9 +174,9 @@ CREATE TABLE IF NOT EXISTS DireccionesEnvio (
     idDireccion INT PRIMARY KEY,
     idUsuario INT NOT NULL,
     direccion VARCHAR(255) NOT NULL,
-    department VARCHAR(255) NOT NULL,
-    municipality VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
+    departamento VARCHAR(255) NOT NULL,
+    municipio VARCHAR(255) NOT NULL,
+    ciudad VARCHAR(255) NOT NULL,
     CONSTRAINT fk_DireccionesEnvio_Usuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
