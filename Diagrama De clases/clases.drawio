@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="xLcGjLG1Y2inO_7Ebg9N" name="Página-1">
-        <mxGraphModel dx="386" dy="1513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="651" dy="1749" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -37,7 +37,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="12" value="- idPedido: int (PK)&#10;- idUsuario: int&#10;- Hora: time&#10;- FechaPedido: date&#10;- Estado: string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="11" vertex="1">
+                <mxCell id="12" value="- idPedido: int (PK)&#10;- idUsuario: int (FK)&#10;- Hora: time&#10;- FechaPedido: date&#10;- Estado: string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="11" vertex="1">
                     <mxGeometry y="26" width="160" height="84" as="geometry"/>
                 </mxCell>
                 <mxCell id="13" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="11" vertex="1">
@@ -77,7 +77,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="19" value=" - idProducto: int (PK)&#10; - idPedido: int&#10; - nombre: string&#10; - precio: float&#10; - categoria: string&#10; - descripcion: string&#10; " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="18" vertex="1">
+                <mxCell id="19" value=" - idProducto: int (PK)&#10; - idPedido: int (FK)&#10; - nombre: string&#10; - precio: float&#10; - categoria: string&#10; - descripcion: string&#10; " style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="18" vertex="1">
                     <mxGeometry y="26" width="160" height="114" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="18" vertex="1">
@@ -91,7 +91,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="23" value="- idNotificacion: int (PK)&#10;- idPedido: int&#10;- fecha: date&#10;- hora: time&#10;- notificacionPedido: text" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="22" vertex="1">
+                <mxCell id="23" value="- idNotificacion: int (PK)&#10;- idPedido: int (FK)&#10;- fecha: date&#10;- hora: time&#10;- notificacionPedido: text" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="22" vertex="1">
                     <mxGeometry y="26" width="160" height="84" as="geometry"/>
                 </mxCell>
                 <mxCell id="24" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="22" vertex="1">
@@ -163,7 +163,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="42" value="- idFotoProducto: int (PK)&#10;-  idProducto int&#10;- urlFoto: string&#10;- descripcion: text" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="41" vertex="1">
+                <mxCell id="42" value="- idFotoProducto: int (PK)&#10;-  idProducto int (FK)&#10;- urlFoto: string&#10;- descripcion: text" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="41" vertex="1">
                     <mxGeometry y="26" width="160" height="74" as="geometry"/>
                 </mxCell>
                 <mxCell id="43" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="41" vertex="1">
@@ -236,7 +236,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="63" value="- IdComprobante: int (PK)&#10;- IdPedido: int&#10;- Fecha: date&#10;- Total: float&#10;- Detalles: text&#10;- EstadoPago: string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="62" vertex="1">
+                <mxCell id="63" value="- IdComprobante: int (PK)&#10;- IdPedido: int (FK)&#10;- Fecha: date&#10;- Total: float&#10;- Detalles: text&#10;- EstadoPago: string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="62" vertex="1">
                     <mxGeometry y="26" width="190" height="114" as="geometry"/>
                 </mxCell>
                 <mxCell id="64" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="62" vertex="1">
@@ -250,7 +250,7 @@
                         <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="67" value="- IdCupon: int (PK)&#10;- codigo: string&#10;- descuento float&#10;- fechaInicio date&#10;- fechaFin date&#10;- estado string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="66" vertex="1">
+                <mxCell id="67" value="- IdCupon: int (PK)&#10;-idUsuarios int (FK)&#10;- codigo: string&#10;- descuento float&#10;- fechaInicio date&#10;- fechaFin date&#10;- estado string" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="66" vertex="1">
                     <mxGeometry y="26" width="190" height="114" as="geometry"/>
                 </mxCell>
                 <mxCell id="68" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="66" vertex="1">
@@ -328,12 +328,6 @@
                 </mxCell>
                 <mxCell id="89" value="+constructor()&#10;+ crearHistorialPago()&#10;+ obtenerHistorialPagoPorId()&#10;+ actualizarHistorialPago()&#10;+ eliminarHistorialPago()" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontColor=#FFFFFF;" parent="86" vertex="1">
                     <mxGeometry y="194" width="190" height="102" as="geometry"/>
-                </mxCell>
-                <mxCell id="90" value="" style="endArrow=none;html=1;rounded=0;fontColor=#FFFFFF;" parent="1" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1250" y="579.9999999999991" as="sourcePoint"/>
-                        <mxPoint x="1250" y="619.9999999999991" as="targetPoint"/>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#008a00;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="58" target="6" edge="1">
                     <mxGeometry relative="1" as="geometry">
