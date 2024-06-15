@@ -178,7 +178,6 @@ CREATE TABLE IF NOT EXISTS DireccionesEnvio (
     department VARCHAR(255) NOT NULL,
     municipality VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
-    street VARCHAR(255) NOT NULL,
     CONSTRAINT fk_DireccionesEnvio_Usuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
