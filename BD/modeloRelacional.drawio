@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="REg8bK3iksaSxMSDPo0x" name="Página-1">
-        <mxGraphModel dx="1777" dy="2181" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="2369" dy="2518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -183,9 +183,8 @@
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="1160" y="-327" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="108" y="75"/>
-                            <mxPoint x="108" y="-670"/>
-                            <mxPoint x="1120" y="-670"/>
+                            <mxPoint x="108" y="-530"/>
+                            <mxPoint x="1120" y="-530"/>
                             <mxPoint x="1120" y="-327"/>
                         </Array>
                         <mxPoint x="107.5" y="70" as="sourcePoint"/>
@@ -273,7 +272,7 @@
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1380" y="789"/>
-                            <mxPoint x="1380" y="1102"/>
+                            <mxPoint x="1380" y="932"/>
                         </Array>
                         <mxPoint x="1070" y="1103" as="targetPoint"/>
                         <mxPoint x="1430" y="789.0000000000005" as="sourcePoint"/>
@@ -1478,7 +1477,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="401" value="ReviewProductos" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" vertex="1" parent="1">
-                    <mxGeometry x="880" y="920" width="180" height="210" as="geometry"/>
+                    <mxGeometry x="890" y="750" width="180" height="210" as="geometry"/>
                 </mxCell>
                 <mxCell id="402" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" vertex="1" parent="401">
                     <mxGeometry y="30" width="180" height="30" as="geometry"/>
