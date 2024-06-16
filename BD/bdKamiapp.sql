@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     direccion VARCHAR(255) NOT NULL,
     telefono VARCHAR(20) NOT NULL,
     correo VARCHAR(255) NOT NULL,
-    nickname VARCHAR(255) NOT NULL
+    nickname VARCHAR(255) NOT NULL,
+    imagenPerfil VARCHAR (255) NOT NULL
 );
 
 -- Tabla UsuariosRoles (Tabla intermedia para la relación muchos a muchos)
@@ -219,6 +220,7 @@ CREATE TABLE IF NOT EXISTS HistorialesPago (
 
 -- Tabla intermedia PedidosProductos (Tabla intermedia para la relación muchos a muchos)
 CREATE TABLE IF NOT EXISTS PedidosProductos (
+    idPedidosProductos INT PRIMARY KEY,
     idPedido INT NOT NULL,
     idProducto INT NOT NULL,
     cantidad INT NOT NULL,
